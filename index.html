@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-HK" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Int.rhythm // 數位實驗室指揮中心</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#0a0b0e',
+                            card: '#12141c',
+                            border: '#1e2330',
+                            glow: '#00f2fe',
+                            accent: '#4facfe'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0b0e;
+            color: #e2e8f0;
+        }
+        .font-mono-tech {
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .glow-box {
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.08);
+            border: 1px solid rgba(79, 172, 254, 0.15);
+        }
+        .glow-box:hover {
+            box-shadow: 0 0 25px rgba(79, 172, 254, 0.2);
+            border-color: rgba(79, 172, 254, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 bg-cyber-dark relative overflow-x-hidden">
+
+    <!-- 背景裝飾網格 -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e233010_1px,transparent_1px),linear-gradient(to_bottom,#1e233010_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+
+    <!-- 頂部導航與系統狀態 -->
+    <header class="w-full max-w-md mx-auto flex justify-between items-center py-4 z-10 border-b border-cyber-border">
+        <div class="flex items-center space-x-2">
+            <div class="w-2 h-2 rounded-full bg-cyber-glow animate-pulse"></div>
+            <span class="font-mono-tech text-xs tracking-wider text-cyber-accent">INT.RHYTHM // SYSTEM</span>
+        </div>
+        <div class="text-xs font-mono-tech px-2 py-1 rounded bg-cyber-card border border-cyber-border text-emerald-400 flex items-center space-x-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <span>SYSTEM ONLINE</span>
+        </div>
+    </header>
+
+    <!-- 主要內容區 -->
+    <main class="w-full max-w-md mx-auto my-auto space-y-6 z-10 py-6">
+        
+        <!-- 頭像與品牌理念 -->
+        <div class="text-center space-y-3">
+            <div class="w-20 h-20 mx-auto rounded-xl bg-gradient-to-br from-cyber-card to-cyber-border p-1 glow-box flex items-center justify-center">
+                <div class="w-full h-full bg-black/60 rounded-lg flex items-center justify-center font-mono-tech text-cyber-glow text-lg font-bold tracking-wider">
+                    INT_
+                </div>
+            </div>
+            <h1 class="text-lg font-semibold tracking-wide text-white">Int.rhythm // Nova_Lab</h1>
+            <p class="text-xs text-gray-400 max-w-xs mx-auto leading-relaxed">
+                Background Processing. Foreground Living.<br>
+                在後台覆盤模型，在前台享受生活。
+            </p>
+        </div>
+
+        <!-- 模組化導航卡片 Links -->
+        <div class="space-y-3">
+            
+            <!-- 算力節點 GoMining -->
+            <a href="https://gomining.com/?ref=1LFGB31" target="_blank" class="block group">
+                <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xl">⚡</span>
+                            <div>
+                                <h2 class="text-sm font-medium text-white group-hover:text-cyber-accent transition-colors">Lab Node 算力節點</h2>
+                                <p class="text-xs text-gray-400">GoMining 數位資產與算力日誌</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono-tech text-cyber-glow px-2 py-1 rounded bg-black/40 border border-cyber-border">🟢 ON</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 量化交易儀表板 Trading Dashboard -->
+            <a href="https://huggingface.co/spaces/tnno/rl-bitcoin-trading-dashboard" target="_blank" class="block group">
+                <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xl">📈</span>
+                            <div>
+                                <h2 class="text-sm font-medium text-white group-hover:text-cyber-accent transition-colors">量化交易儀表板 (Hugging Face)</h2>
+                                <p class="text-xs text-gray-400">PyTorch / MQL5 演算法運行實況</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-gray-500 group-hover:text-cyber-accent">→</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- System Log -->
+            <div class="glow-box bg-cyber-card rounded-xl p-4">
+                <div class="flex items-start space-x-3">
+                    <span class="text-xl">📝</span>
+                    <div class="space-y-1">
+                        <h2 class="text-sm font-medium text-white">System Log</h2>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            「人生無需出盡風頭。與其盲目逞強，不如把精力轉化為靜默運轉的後台結構。」
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 底部標籤與版權 -->
+    <footer class="w-full max-w-md mx-auto text-center py-4 z-10 border-t border-cyber-border/50 space-y-2">
+        <div class="flex justify-center space-x-2 text-[10px] font-mono-tech text-gray-500">
+            <span>#IntRhythm</span>
+            <span>#NovaSystem</span>
+            <span>#DigitalLab</span>
+        </div>
+        <p class="text-[10px] text-gray-600">&copy; 2026 Int.rhythm. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
