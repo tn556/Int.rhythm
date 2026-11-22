@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-HK" class="dark">
+<html lang="zh-HK" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,7 +61,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="w-full max-w-md mx-auto my-auto space-y-5 z-10 py-4">
+    <main class="w-full max-w-md mx-auto my-auto space-y-6 z-10 py-4">
         
         <!-- Logo + Brand -->
         <div class="text-center space-y-3">
@@ -73,15 +73,31 @@
                 <p class="text-[11px] text-cyber-accent/80 font-mono-tech mt-0.5">BACKGROUND PROCESSING. FOREGROUND LIVING.</p>
             </div>
             <p class="text-xs text-gray-400 max-w-xs mx-auto leading-relaxed px-2">
-                自動化系統工程 · 量化交易模型 · 網賺研究 · 實體防護外殼
+                01 工程作品 · 02 機能外殼庫存 · 03 網賺與算力實驗
             </p>
+
+            <!-- 三大分區快速跳轉列 -->
+            <nav aria-label="Core partitions" class="grid grid-cols-3 gap-2 pt-1 font-mono-tech text-[11px]">
+                <a href="#portfolio" class="py-2 px-2 rounded-lg bg-cyber-card border border-cyber-border text-gray-300 hover:text-cyber-glow hover:border-cyber-glow/50 transition-colors">
+                    [01] PORTFOLIO
+                </a>
+                <a href="#iteshop" class="py-2 px-2 rounded-lg bg-cyber-card border border-cyber-border text-gray-300 hover:text-cyber-glow hover:border-cyber-glow/50 transition-colors">
+                    [02] ITESHOP
+                </a>
+                <a href="#earn-research" class="py-2 px-2 rounded-lg bg-cyber-card border border-cyber-border text-gray-300 hover:text-cyber-glow hover:border-cyber-glow/50 transition-colors">
+                    [03] EARN LAB
+                </a>
+            </nav>
         </div>
 
-        <!-- Featured Engineering Projects -->
-        <div class="space-y-3">
-            <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider px-1">// Featured Engineering Projects</div>
+        <!-- [01] Portfolio / Engineering Projects -->
+        <section id="portfolio" class="space-y-3 scroll-mt-4">
+            <div class="flex justify-between items-center px-1">
+                <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider">// 01. PORTFOLIO & ENGINEERING</div>
+                <span class="text-[10px] font-mono-tech text-cyber-accent">CORE_SYSTEMS</span>
+            </div>
 
-            <a href="https://huggingface.co/spaces/tnno/rl-bitcoin-trading-dashboard" target="_blank" class="block group">
+            <a href="https://huggingface.co/spaces/tnno/rl-bitcoin-trading-dashboard" target="_blank" rel="noopener noreferrer" class="block group">
                 <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
                     <div class="flex justify-between items-center">
                         <div class="flex items-center space-x-3">
@@ -95,17 +111,44 @@
                     </div>
                 </div>
             </a>
-        </div>
 
-        <!-- System Shell Series -->
-        <div class="space-y-3">
+            <!-- 可按需要取消註解或替換為你其他 Coding / 專案連結
+            <div class="glow-box bg-cyber-card/70 rounded-xl p-4 border-dashed">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-sm font-medium text-gray-200">Prolog Fault Diagnostic & Voice NOC</h2>
+                        <p class="text-xs text-gray-400">電訊故障推理系統與互動排障模擬專案</p>
+                    </div>
+                    <span class="text-[10px] font-mono-tech text-gray-500 px-2 py-0.5 rounded bg-black/50 border border-cyber-border">ARCHIVE</span>
+                </div>
+            </div>
+            -->
+
+            <!-- Tech Stack -->
+            <div class="space-y-2 pt-1">
+                <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider px-1">// Engineering Tech Stack</div>
+                <div class="flex flex-wrap gap-1.5 font-mono-tech text-[10px]">
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Python</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">PyTorch</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Deep RL</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">MQL5</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">SQL</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Prolog</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Tailwind CSS</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Vercel</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- [02] ITeSHOP / System Shell Series -->
+        <section id="iteshop" class="space-y-3 scroll-mt-4">
             <div class="flex justify-between items-center px-1">
-                <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider">// SYSTEM_SHELL SERIES</div>
+                <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider">// 02. ITESHOP // SYSTEM_SHELL SERIES</div>
                 <span class="text-[10px] font-mono-tech text-cyber-glow">ACTIVE</span>
             </div>
 
             <!-- Log #04 : Part 02 Resource Allocation -->
-            <a href="https://hk.iteshop.com/bit/all/fw26-singlesday-promotion-p2?tscode=affhr_hk10072391" target="_blank" class="block group">
+            <a href="https://hk.iteshop.com/bit/all/fw26-singlesday-promotion-p2?tscode=affhr_hk10072391" target="_blank" rel="noopener noreferrer" class="block group">
                 <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5 border-l-2 border-l-cyber-glow">
                     <div class="flex justify-between items-start">
                         <div class="space-y-1.5">
@@ -122,7 +165,7 @@
             </a>
 
             <!-- Log #03 : Graphic Tee Overdrive -->
-            <a href="http://hk.iteshop.com/sit/all/graphic-tee-collection?tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_FastTSS26_6189" target="_blank" class="block group">
+            <a href="http://hk.iteshop.com/sit/all/graphic-tee-collection?tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_FastTSS26_6189" target="_blank" rel="noopener noreferrer" class="block group">
                 <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
                     <div class="flex justify-between items-start">
                         <div class="space-y-1.5">
@@ -139,7 +182,7 @@
             </a>
 
             <!-- Shell Log #02 -->
-            <a href="http://hk.iteshop.com/sit/all?c=clothing%2523%2523%2523clothing_coatsjackets&tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_SITFALL202610_6454" target="_blank" class="block group">
+            <a href="http://hk.iteshop.com/sit/all?c=clothing%2523%2523%2523clothing_coatsjackets&tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_SITFALL202610_6454" target="_blank" rel="noopener noreferrer" class="block group">
                 <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
                     <div class="flex justify-between items-start">
                         <div class="space-y-1.5">
@@ -156,7 +199,7 @@
             </a>
 
             <!-- Shell Log #01 -->
-            <a href="http://hk.iteshop.com/sit/men/clothing/coats%20%26%20jackets?tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_SITIMPORT2611_6512" target="_blank" class="block group">
+            <a href="http://hk.iteshop.com/sit/men/clothing/coats%20%26%20jackets?tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_SITIMPORT2611_6512" target="_blank" rel="noopener noreferrer" class="block group">
                 <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
                     <div class="flex justify-between items-start">
                         <div class="space-y-1.5">
@@ -171,13 +214,16 @@
                     </div>
                 </div>
             </a>
-        </div>
+        </section>
 
-        <!-- Online Earn Research -->
-        <div class="space-y-3">
-            <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider px-1">// Online Earn Research</div>
+        <!-- [03] Online Earn Research -->
+        <section id="earn-research" class="space-y-3 scroll-mt-4">
+            <div class="flex justify-between items-center px-1">
+                <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider">// 03. ONLINE EARN RESEARCH</div>
+                <span class="text-[10px] font-mono-tech text-amber-400/90">EXPERIMENTAL</span>
+            </div>
 
-            <a href="https://gomining.com/?ref=1LFGB31" target="_blank" class="block group">
+            <a href="https://gomining.com/?ref=1LFGB31" target="_blank" rel="noopener noreferrer" class="block group">
                 <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
                     <div class="flex justify-between items-center">
                         <div class="flex items-center space-x-3">
@@ -191,13 +237,13 @@
                     </div>
                 </div>
             </a>
-        </div>
+        </section>
 
         <!-- System Logs -->
-        <div class="space-y-3">
+        <section class="space-y-3">
             <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider px-1">// System Logs & IG Notes</div>
 
-            <a href="https://www.instagram.com/lnt.rhythm" target="_blank" class="block group">
+            <a href="https://www.instagram.com/lnt.rhythm" target="_blank" rel="noopener noreferrer" class="block group">
                 <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
                     <div class="flex items-start justify-between">
                         <div class="flex items-start space-x-3">
@@ -215,32 +261,18 @@
                     </div>
                 </div>
             </a>
-        </div>
-
-        <!-- Tech Stack -->
-        <div class="space-y-2 pt-2">
-            <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider px-1">// Engineering Tech Stack</div>
-            <div class="flex flex-wrap gap-1.5 font-mono-tech text-[10px]">
-                <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Python</span>
-                <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">PyTorch</span>
-                <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Deep RL</span>
-                <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">MQL5</span>
-                <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">SQL</span>
-                <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Tailwind CSS</span>
-                <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Vercel</span>
-            </div>
-        </div>
+        </section>
 
     </main>
 
     <!-- Footer -->
     <footer class="w-full max-w-md mx-auto text-center py-4 z-10 border-t border-cyber-border/50 space-y-2">
         <div class="flex justify-center space-x-4 text-xs font-mono-tech text-gray-400">
-            <a href="https://www.instagram.com/lnt.rhythm" target="_blank" class="hover:text-cyber-glow transition-colors">LNT-RHYTHM IG</a>
+            <a href="https://www.instagram.com/lnt.rhythm" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-glow transition-colors">LNT-RHYTHM IG</a>
             <span>•</span>
-            <a href="https://huggingface.co/spaces/tnno/rl-bitcoin-trading-dashboard" target="_blank" class="hover:text-cyber-glow transition-colors">Hugging Face</a>
+            <a href="https://huggingface.co/spaces/tnno/rl-bitcoin-trading-dashboard" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-glow transition-colors">Hugging Face</a>
             <span>•</span>
-            <a href="https://gomining.com/?ref=1LFGB31" target="_blank" class="hover:text-cyber-glow transition-colors">GoMining</a>
+            <a href="https://gomining.com/?ref=1LFGB31" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-glow transition-colors">GoMining</a>
         </div>
         <p class="text-[10px] text-gray-600 font-mono-tech">&copy; 2026 Int.rhythm // Nova_Lab. All rights reserved.</p>
     </footer>
