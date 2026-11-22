@@ -481,20 +481,16 @@
         </div>
 
         <div class="flex flex-wrap gap-3">
-          <a href="mailto:you@example.com" class="rounded-full border border-white/10 px-5 py-2.5 text-sm text-slate-300 hover:border-cyan-400/40 hover:text-cyan-200">
-            Email
-          </a>
-
           <a href="https://www.instagram.com/lnt.rhythm" target="_blank" rel="noopener noreferrer" class="rounded-full border border-white/10 px-5 py-2.5 text-sm text-slate-300 hover:border-cyan-400/40 hover:text-cyan-200">
             Instagram
           </a>
 
-          <a href="#" class="rounded-full border border-white/10 px-5 py-2.5 text-sm text-slate-300 hover:border-cyan-400/40 hover:text-cyan-200">
+          <a href="https://github.com/tn556/Int.rhythm" target="_blank" rel="noopener noreferrer" class="rounded-full border border-white/10 px-5 py-2.5 text-sm text-slate-300 hover:border-cyan-400/40 hover:text-cyan-200">
             GitHub
           </a>
 
-          <a href="#" class="rounded-full border border-white/10 px-5 py-2.5 text-sm text-slate-300 hover:border-cyan-400/40 hover:text-cyan-200">
-            LinkedIn
+          <a href="https://huggingface.co/spaces/tnno/rl-bitcoin-trading-dashboard" target="_blank" rel="noopener noreferrer" class="rounded-full border border-white/10 px-5 py-2.5 text-sm text-slate-300 hover:border-cyan-400/40 hover:text-cyan-200">
+            Hugging Face
           </a>
         </div>
       </div>
@@ -510,9 +506,8 @@
       </p>
 
       <div class="flex items-center gap-4 text-xs text-slate-400">
-        <a href="#" class="hover:text-cyan-300">GitHub</a>
-        <a href="#" class="hover:text-cyan-300">LinkedIn</a>
-        <a href="mailto:you@example.com" class="hover:text-cyan-300">Email</a>
+        <a href="https://github.com/tn556/Int.rhythm" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-300">GitHub</a>
+        <a href="https://huggingface.co/spaces/tnno/rl-bitcoin-trading-dashboard" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-300">Hugging Face</a>
         <a href="https://www.instagram.com/lnt.rhythm" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-300">
           Instagram
         </a>
@@ -528,7 +523,7 @@
     mobileMenuBtn.addEventListener("click", () => {
       const isOpen = mobileMenu.classList.contains("hidden");
       mobileMenu.classList.toggle("hidden", !isOpen);
-      mobileMenuBtn.setAttribute("aria-expanded", isOpen);
+      mobileMenuBtn.setAttribute("aria-expanded", String(isOpen));
     });
 
     document.querySelectorAll(".mobile-nav-link").forEach(link => {
@@ -617,7 +612,7 @@
       mode: "game",
       scenario: null,
       xp: 0,
-      solved: 0,
+      solvedKeys: [],
       total: 3
     };
 
@@ -626,10 +621,13 @@
       const btn = document.getElementById("vnc-toggle-btn");
 
       consoleEl.classList.toggle("hidden");
+      const isOpen = !consoleEl.classList.contains("hidden");
+      btn.textContent = isOpen ? "CLOSE ▴" : "LAUNCH ▾";
 
-      btn.textContent = consoleEl.classList.contains("hidden")
-        ? "LAUNCH ▾"
-        : "CLOSE ▴";
+      if (isOpen && !vncState.scenario) {
+        loadVncScenario("oneWay");
+        renderVncCheat("503");
+      }
     }
 
     function switchVncMode(mode) {
@@ -648,6 +646,7 @@
 
       choices.forEach((choice, index) => {
         const btn = document.createElement("button");
+        btn.type = "button";
         btn.className = "w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-left text-xs text-slate-200 hover:border-cyan-400/40";
         btn.textContent = `${index + 1}. ${choice}`;
         btn.onclick = () => handleVncChoice(index);
@@ -678,8 +677,10 @@
       sop.classList.add("hidden");
 
       if (index === scenario.correct) {
-        vncState.xp += 100;
-        vncState.solved += 1;
+        if (!vncState.solvedKeys.includes(vncState.scenario)) {
+          vncState.solvedKeys.push(vncState.scenario);
+          vncState.xp += 100;
+        }
 
         feedback.className = "rounded-lg p-2.5 text-xs leading-relaxed bg-emerald-500/10 text-emerald-200";
         feedback.textContent = "✅ 判斷正確。已定位 Root Cause。";
@@ -707,7 +708,7 @@
 
     function updateVncStatus() {
       document.getElementById("vnc-xp").textContent = `⚡ ${vncState.xp} XP`;
-      document.getElementById("vnc-solved").textContent = `✓ ${vncState.solved}/${vncState.total}`;
+      document.getElementById("vnc-solved").textContent = `✓ ${vncState.solvedKeys.length}/${vncState.total}`;
     }
   </script>
 </body>
