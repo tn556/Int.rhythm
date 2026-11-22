@@ -1,317 +1,525 @@
 <!DOCTYPE html>
 <html lang="zh-HK" class="dark scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Int.rhythm // Nova_Lab</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap');
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #05070a;
-      color: #e2e8f0;
-    }
-    .font-mono-tech {
-      font-family: 'Share Tech Mono', monospace;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Int.rhythm // Nova_Lab - 數位實驗室與工程作品站</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#0a0b0e',
+                            card: '#12141c',
+                            border: '#1e2330',
+                            glow: '#00f2fe',
+                            accent: '#4facfe'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@300;400;500;600&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0b0e;
+            color: #e2e8f0;
+        }
+        .font-mono-tech {
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .glow-box {
+            box-shadow: 0 0 20px rgba(79, 172, 254, 0.08);
+            border: 1px solid rgba(79, 172, 254, 0.15);
+        }
+        .glow-box:hover {
+            box-shadow: 0 0 25px rgba(79, 172, 254, 0.2);
+            border-color: rgba(79, 172, 254, 0.4);
+        }
+    </style>
 </head>
-<body class="bg-[#05070a] text-slate-200 antialiased overflow-x-hidden">
+<body class="min-h-screen flex flex-col items-center justify-between p-4 sm:p-6 bg-cyber-dark relative overflow-x-hidden">
 
-  <!-- ============ HEADER ============ -->
-  <header class="fixed top-0 z-50 w-full border-b border-white/5 bg-[#05070a]/80 backdrop-blur-md">
-    <div class="mx-auto flex h-16 max-w-6xl items-center justify-between px-6 sm:px-8 lg:px-12">
+    <!-- 背景網格 -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e233010_1px,transparent_1px),linear-gradient(to_bottom,#1e233010_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
 
-      <!-- Logo / identity -->
-      <a href="#hero" class="group flex items-center gap-3">
-        <span class="flex h-8 w-8 items-center justify-center rounded-lg border border-cyan-400/25 bg-cyan-400/10 font-mono-tech text-xs text-cyan-300">
-          NL
-        </span>
-        <span class="font-mono-tech text-xs uppercase tracking-[0.22em] text-slate-300 transition group-hover:text-cyan-300">
-          Int.rhythm // Nova_Lab
-        </span>
-      </a>
+    <!-- Header -->
+    <header class="w-full max-w-md mx-auto flex justify-between items-center py-4 z-10 border-b border-cyber-border">
+        <div class="flex items-center space-x-2">
+            <div class="w-2 h-2 rounded-full bg-cyber-glow animate-pulse"></div>
+            <span class="font-mono-tech text-xs tracking-wider text-cyber-accent">INT.RHYTHM // NOVA_LAB</span>
+        </div>
+        <div class="text-xs font-mono-tech px-2 py-1 rounded bg-cyber-card border border-cyber-border text-emerald-400 flex items-center space-x-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
+            <span>SYSTEM ONLINE</span>
+        </div>
+    </header>
 
-      <!-- Desktop navigation -->
-      <nav class="hidden items-center gap-7 md:flex">
-        <a href="#projects" class="font-mono-tech text-[11px] uppercase tracking-[0.2em] text-slate-400 transition hover:text-cyan-300">
-          Projects
-        </a>
-        <a href="#shop" class="font-mono-tech text-[11px] uppercase tracking-[0.2em] text-slate-400 transition hover:text-cyan-300">
-          Shop
-        </a>
-        <a href="#lab" class="font-mono-tech text-[11px] uppercase tracking-[0.2em] text-slate-400 transition hover:text-cyan-300">
-          Lab
-        </a>
-        <a href="#notes" class="font-mono-tech text-[11px] uppercase tracking-[0.2em] text-slate-400 transition hover:text-cyan-300">
-          Notes
-        </a>
-        <a href="#contact" class="rounded-full border border-cyan-400/30 bg-cyan-400/10 px-4 py-1.5 font-mono-tech text-[11px] uppercase tracking-[0.2em] text-cyan-200 transition hover:border-cyan-300 hover:bg-cyan-400/15">
-          Contact
-        </a>
-      </nav>
-
-      <!-- Mobile menu button -->
-      <button
-        id="mobile-menu-btn"
-        type="button"
-        aria-label="Open navigation menu"
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-        class="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-slate-300 md:hidden"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      </button>
-    </div>
-
-    <!-- Mobile menu -->
-    <div id="mobile-menu" class="hidden border-t border-white/5 bg-[#05070a]/95 px-6 py-4 md:hidden">
-      <div class="flex flex-col gap-3">
-        <a href="#projects" class="mobile-nav-link font-mono-tech text-xs uppercase tracking-[0.2em] text-slate-300">Projects</a>
-        <a href="#shop" class="mobile-nav-link font-mono-tech text-xs uppercase tracking-[0.2em] text-slate-300">Shop</a>
-        <a href="#lab" class="mobile-nav-link font-mono-tech text-xs uppercase tracking-[0.2em] text-slate-300">Lab</a>
-        <a href="#notes" class="mobile-nav-link font-mono-tech text-xs uppercase tracking-[0.2em] text-slate-300">Notes</a>
-        <a href="#contact" class="mobile-nav-link font-mono-tech text-xs uppercase tracking-[0.2em] text-cyan-300">Contact</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- ============ MAIN ============ -->
-  <main class="pt-16">
-
-    <!-- ============ HERO ============ -->
-    <section id="hero" class="relative flex min-h-[92vh] items-center overflow-hidden px-6 sm:px-8 lg:px-12">
-      <div class="absolute inset-0 -z-20 bg-[#05070a]"></div>
-      <div class="absolute inset-0 -z-10 opacity-[0.07] bg-[linear-gradient(to_right,rgba(56,189,248,0.45)_1px,transparent_1px),linear-gradient(to_bottom,rgba(56,189,248,0.45)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
-      <div class="absolute -left-32 -top-40 -z-10 h-[30rem] w-[30rem] rounded-full bg-cyan-500/10 blur-[130px]"></div>
-      <div class="absolute -bottom-40 -right-24 -z-10 h-[28rem] w-[28rem] rounded-full bg-blue-600/10 blur-[130px]"></div>
-
-      <div class="relative mx-auto w-full max-w-6xl">
-        <div class="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-
-          <!-- Left: identity -->
-          <div class="space-y-8">
-            <div class="inline-flex items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/5 px-3 py-1.5">
-              <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400"></span>
-              <span class="font-mono-tech text-[10px] uppercase tracking-[0.24em] text-cyan-300">System online</span>
+    <!-- Main Content -->
+    <main class="w-full max-w-md mx-auto my-auto space-y-6 z-10 py-4">
+        
+        <!-- Logo + Brand -->
+        <div class="text-center space-y-3">
+            <div class="w-24 h-24 mx-auto rounded-full glow-box overflow-hidden bg-black/60 flex items-center justify-center">
+                <img src="logo.jpg" alt="Int.rhythm Logo" class="w-full h-full object-cover">
             </div>
-
-            <div class="space-y-5">
-              <p class="font-mono-tech text-[11px] uppercase tracking-[0.3em] text-cyan-300/80">
-                Int.rhythm // Nova_Lab
-              </p>
-
-              <h1 class="max-w-2xl text-4xl font-light leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-                Engineering projects,
-                <span class="text-cyan-300">side-business experiments</span>,
-                and quiet systems that run in the background.
-              </h1>
-
-              <p class="max-w-xl text-sm leading-relaxed text-slate-400 sm:text-base">
-                我是 Nova Lab 的建立者：以工程思維記錄作品、副業與日常生活，
-                把複雜的系統整理成可理解、可實驗、可延續的結構。
-              </p>
+            <div>
+                <h1 class="text-base font-semibold tracking-wide text-white font-mono-tech">Int.rhythm // Nova_Lab</h1>
+                <p class="text-[11px] text-cyber-accent/80 font-mono-tech mt-0.5">BACKGROUND PROCESSING. FOREGROUND LIVING.</p>
             </div>
+            <p class="text-xs text-gray-400 max-w-xs mx-auto leading-relaxed px-2">
+                01 工程作品 · 02 機能外殼庫存 · 03 網賺與算力實驗
+            </p>
 
-            <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a
-                href="#projects"
-                class="group inline-flex items-center justify-center gap-2 rounded-full border border-cyan-400/40 bg-cyan-400/10 px-6 py-3 text-sm font-medium text-cyan-100 transition hover:border-cyan-300 hover:bg-cyan-400/15"
-              >
-                Explore projects
-                <span class="font-mono-tech text-xs transition group-hover:translate-x-0.5">→</span>
-              </a>
-
-              <a
-                href="#contact"
-                class="inline-flex items-center justify-center rounded-full border border-white/10 px-6 py-3 text-sm font-medium text-slate-300 transition hover:border-white/25 hover:text-white"
-              >
-                Get in touch
-              </a>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-x-5 gap-y-2 pt-2 font-mono-tech text-[10px] uppercase tracking-[0.22em] text-slate-500">
-              <span>Voice / Telecom</span>
-              <span class="text-slate-700">/</span>
-              <span>AI &amp; Automation</span>
-              <span class="text-slate-700">/</span>
-              <span>Personal Lab</span>
-            </div>
-          </div>
-
-          <!-- Right: console card -->
-          <div class="relative">
-            <div class="rounded-2xl border border-white/10 bg-black/40 p-5 shadow-2xl backdrop-blur-sm sm:p-6">
-              <div class="flex items-center justify-between border-b border-white/10 pb-3">
-                <div class="flex items-center gap-2">
-                  <span class="h-2.5 w-2.5 rounded-full bg-red-400/80"></span>
-                  <span class="h-2.5 w-2.5 rounded-full bg-amber-400/80"></span>
-                  <span class="h-2.5 w-2.5 rounded-full bg-emerald-400/80"></span>
-                </div>
-                <p class="font-mono-tech text-[10px] uppercase tracking-[0.2em] text-slate-500">
-                  Nova_Lab / status
-                </p>
-              </div>
-
-              <div class="space-y-3 py-5 font-mono-tech text-xs leading-relaxed text-slate-300">
-                <p><span class="text-cyan-300">&gt;</span> Core systems: <span class="text-emerald-300">online</span></p>
-                <p><span class="text-cyan-300">&gt;</span> Engineering projects: <span class="text-white">VoiceNOC Survival · RL Dashboard</span></p>
-                <p><span class="text-cyan-300">&gt;</span> Side business: <span class="text-white">ITE SHOP</span></p>
-                <p><span class="text-cyan-300">&gt;</span> Experiments: <span class="text-white">Earn Lab</span></p>
-                <p><span class="text-cyan-300">&gt;</span> Background processing: <span class="text-emerald-300">active</span></p>
-              </div>
-
-              <div class="border-t border-white/10 pt-4">
-                <a
-                  href="#projects"
-                  class="group flex items-center justify-between rounded-xl border border-cyan-400/20 bg-cyan-400/5 px-4 py-3 transition hover:border-cyan-300/40 hover:bg-cyan-400/10"
-                >
-                  <span class="text-sm font-medium text-cyan-100">Enter the lab</span>
-                  <span class="font-mono-tech text-xs text-cyan-300 transition group-hover:translate-x-0.5">→</span>
+            <!-- 三大分區快速跳轉列 -->
+            <nav aria-label="Core partitions" class="grid grid-cols-3 gap-2 pt-1 font-mono-tech text-[11px]">
+                <a href="#portfolio" class="py-2 px-2 rounded-lg bg-cyber-card border border-cyber-border text-gray-300 hover:text-cyber-glow hover:border-cyber-glow/50 transition-colors">
+                    [01] PORTFOLIO
                 </a>
-              </div>
-            </div>
-            <div class="absolute -bottom-3 -right-3 -z-10 h-full w-full rounded-2xl border border-cyan-400/10"></div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ [01] PROJECTS ============ -->
-    <section id="projects" class="border-t border-white/5 px-6 py-20 sm:px-8 lg:px-12 scroll-mt-16">
-      <div class="mx-auto max-w-6xl space-y-8">
-        <div class="flex flex-wrap items-end justify-between gap-2">
-          <div>
-            <p class="font-mono-tech text-[11px] uppercase tracking-[0.25em] text-cyan-300/80">// 01. Engineering Projects</p>
-            <h2 class="mt-1 text-2xl font-light text-white sm:text-3xl">Selected Works &amp; Interactive Tools</h2>
-          </div>
-          <span class="font-mono-tech text-[11px] uppercase tracking-[0.2em] text-slate-500">Core Systems</span>
+                <a href="#iteshop" class="py-2 px-2 rounded-lg bg-cyber-card border border-cyber-border text-gray-300 hover:text-cyber-glow hover:border-cyber-glow/50 transition-colors">
+                    [02] ITESHOP
+                </a>
+                <a href="#earn-research" class="py-2 px-2 rounded-lg bg-cyber-card border border-cyber-border text-gray-300 hover:text-cyber-glow hover:border-cyber-glow/50 transition-colors">
+                    [03] EARN LAB
+                </a>
+            </nav>
         </div>
 
-        <div class="grid gap-6 lg:grid-cols-2">
-          <!-- RL Dashboard Card -->
-          <a
-            href="https://huggingface.co/spaces/tnno/rl-bitcoin-trading-dashboard"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex flex-col justify-between rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition hover:border-cyan-400/40 hover:bg-white/[0.04]"
-          >
-            <div class="space-y-3">
-              <div class="flex items-center justify-between font-mono-tech text-[11px] text-cyan-300">
-                <span>AI / QUANTITATIVE</span>
-                <span>SPACE ↗</span>
-              </div>
-              <h3 class="text-lg font-medium text-white group-hover:text-cyan-300 transition">
-                RL Quant Trading Dashboard
-              </h3>
-              <p class="text-sm leading-relaxed text-slate-400">
-                PyTorch / MQL5 深度強化學習交易模型與互動展示介面，探索策略訓練與回測視覺化。
-              </p>
-            </div>
-            <div class="mt-6 flex flex-wrap gap-2 font-mono-tech text-[10px] text-slate-400">
-              <span class="rounded border border-white/10 px-2 py-0.5">Python</span>
-              <span class="rounded border border-white/10 px-2 py-0.5">PyTorch</span>
-              <span class="rounded border border-white/10 px-2 py-0.5">MQL5</span>
-            </div>
-          </a>
-
-          <!-- VoiceNOC Survival Interactive Card -->
-          <div class="rounded-2xl border border-cyan-400/25 bg-white/[0.02] p-6 space-y-4">
-            <div class="flex items-start justify-between gap-3">
-              <div class="space-y-1.5">
-                <div class="flex items-center gap-2 font-mono-tech text-[11px] text-cyan-300">
-                  <span>CORE VOICE / INCIDENT TRIAGE</span>
-                  <span class="rounded bg-cyan-400/10 px-2 py-0.5 text-[10px] border border-cyan-400/30">INTERACTIVE</span>
-                </div>
-                <h3 class="text-lg font-medium text-white">VoiceNOC Survival</h3>
-                <p class="text-sm leading-relaxed text-slate-400">
-                  以實務排障思路設計嘅互動演練與急用速查面板。無實時網管權限；涉及影響客戶操作需經 Change Control。
-                </p>
-              </div>
-              <button
-                id="vnc-toggle-btn"
-                type="button"
-                onclick="toggleVoiceNoc()"
-                class="shrink-0 rounded-full border border-cyan-400/35 bg-cyan-400/10 px-3.5 py-1.5 font-mono-tech text-[11px] text-cyan-200 transition hover:bg-cyan-400 hover:text-slate-950"
-              >
-                LAUNCH ▾
-              </button>
+        <!-- [01] Portfolio / Engineering Projects -->
+        <section id="portfolio" class="space-y-3 scroll-mt-4">
+            <div class="flex justify-between items-center px-1">
+                <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider">// 01. PORTFOLIO & ENGINEERING</div>
+                <span class="text-[10px] font-mono-tech text-cyber-accent">CORE_SYSTEMS</span>
             </div>
 
-            <div id="vnc-console" class="hidden border-t border-white/10 pt-4 space-y-3">
-              <div class="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-white/10 bg-black/40 px-3 py-2 font-mono-tech text-[11px]">
-                <span id="vnc-mode-label" class="text-emerald-300">【🎮 GAME MODE】</span>
-                <div class="flex items-center gap-2">
-                  <span id="vnc-xp" class="text-amber-300">⚡ 0 XP</span>
-                  <span class="text-slate-600">|</span>
-                  <span id="vnc-solved" class="text-sky-300">✓ 0/3</span>
+            <a href="https://huggingface.co/spaces/tnno/rl-bitcoin-trading-dashboard" target="_blank" rel="noopener noreferrer" class="block group">
+                <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xl p-2 rounded-lg bg-black/40 border border-cyber-border">📈</span>
+                            <div>
+                                <h2 class="text-sm font-medium text-white group-hover:text-cyber-accent transition-colors">RL Quant Trading Dashboard</h2>
+                                <p class="text-xs text-gray-400">PyTorch / MQL5 深度強化學習交易模型</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono-tech text-gray-500 group-hover:text-cyber-accent transition-colors">→</span>
+                    </div>
                 </div>
-              </div>
+            </a>
 
-              <div class="grid grid-cols-2 gap-2 font-mono-tech text-[11px]">
-                <button type="button" id="vnc-tab-game" onclick="switchVncMode('game')" class="rounded-lg border border-cyan-400/50 bg-cyan-400/15 py-1.5 text-cyan-200">
-                  🎮 GAME MODE
-                </button>
-                <button type="button" id="vnc-tab-cheat" onclick="switchVncMode('cheat')" class="rounded-lg border border-white/10 bg-black/40 py-1.5 text-slate-400 hover:text-white">
-                  🚨 CHEAT SHEET
-                </button>
-              </div>
-
-              <div id="vnc-game-view" class="space-y-3">
-                <div class="grid grid-cols-3 gap-1.5 font-mono-tech text-[10px]">
-                  <button type="button" id="vnc-sc-oneWay" onclick="loadVncScenario('oneWay')" class="truncate rounded border border-cyan-400/50 bg-black/50 p-1.5 text-cyan-200">L1: 單通 Audio</button>
-                  <button type="button" id="vnc-sc-dtmf" onclick="loadVncScenario('dtmf')" class="truncate rounded border border-white/10 bg-black/40 p-1.5 text-slate-300">L2: IVR DTMF</button>
-                  <button type="button" id="vnc-sc-sip503" onclick="loadVncScenario('sip503')" class="truncate rounded border border-white/10 bg-black/40 p-1.5 text-slate-300">L3: 503/C.34</button>
+            <!-- VoiceNOC Survival Interactive Module -->
+            <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 border-l-2 border-l-cyber-accent">
+                <div class="flex justify-between items-center gap-2">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl p-2 rounded-lg bg-black/40 border border-cyber-border">🎧</span>
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <h2 class="text-sm font-medium text-white">VoiceNOC Survival</h2>
+                                <span class="text-[10px] font-mono-tech px-1.5 py-0.5 rounded bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/30">INTERACTIVE</span>
+                            </div>
+                            <p class="text-xs text-gray-400">Core Voice 排障模擬 · 急用速查手冊</p>
+                        </div>
+                    </div>
+                    <button
+                        type="button"
+                        id="vnc-toggle-btn"
+                        onclick="toggleVoiceNoc()"
+                        class="text-[11px] font-mono-tech text-cyber-glow px-2.5 py-1.5 rounded bg-black/60 border border-cyber-border hover:bg-cyber-glow hover:text-black transition-all shrink-0"
+                    >
+                        OPEN ▾
+                    </button>
                 </div>
 
-                <div class="rounded-xl border border-white/10 bg-black/40 p-3 space-y-2.5">
-                  <p id="vnc-intro" class="text-xs leading-relaxed text-slate-200"></p>
-                  <p id="vnc-prompt" class="text-xs font-medium text-cyan-300"></p>
-                  <div id="vnc-choices" class="space-y-1.5"></div>
-                  <div id="vnc-feedback" class="hidden rounded-lg p-2.5 text-xs leading-relaxed"></div>
-                  <div id="vnc-sop" class="hidden rounded-lg border border-cyan-400/25 bg-white/[0.03] p-2.5 text-[11px] space-y-1"></div>
-                </div>
-              </div>
+                <!-- Expandable NOC Console -->
+                <div id="vnc-console" class="hidden mt-4 pt-4 border-t border-cyber-border space-y-3">
+                    <!-- Status Strip -->
+                    <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono-tech bg-black/50 border border-cyber-border rounded-lg px-3 py-2">
+                        <span id="vnc-mode-label" class="text-emerald-400">【🎮 GAME MODE】</span>
+                        <div class="flex items-center space-x-2">
+                            <span id="vnc-xp" class="text-amber-300">⚡ 0 XP</span>
+                            <span class="text-gray-600">|</span>
+                            <span id="vnc-solved" class="text-sky-300">✓ 0/3</span>
+                        </div>
+                    </div>
 
-              <div id="vnc-cheat-view" class="hidden space-y-2.5">
-                <div class="grid grid-cols-3 gap-1.5 font-mono-tech text-[10px]">
-                  <button type="button" onclick="renderVncCheat('503')" class="rounded border border-white/10 bg-black/50 p-1.5 text-rose-300">503 / C.34</button>
-                  <button type="button" onclick="renderVncCheat('486')" class="rounded border border-white/10 bg-black/50 p-1.5 text-amber-300">SIP 486</button>
-                  <button type="button" onclick="renderVncCheat('rtp')" class="rounded border border-white/10 bg-black/50 p-1.5 text-sky-300">1-Way RTP</button>
+                    <!-- Mode Tabs -->
+                    <div class="grid grid-cols-2 gap-2 font-mono-tech text-[11px]">
+                        <button
+                            type="button"
+                            id="vnc-tab-game"
+                            onclick="switchVncMode('game')"
+                            class="py-1.5 px-2 rounded-lg bg-cyber-accent/20 text-cyber-glow border border-cyber-accent/50 transition-colors"
+                        >
+                            🎮 GAME MODE
+                        </button>
+                        <button
+                            type="button"
+                            id="vnc-tab-cheat"
+                            onclick="switchVncMode('cheat')"
+                            class="py-1.5 px-2 rounded-lg bg-black/50 text-gray-400 border border-cyber-border hover:text-white transition-colors"
+                        >
+                            🚨 CHEAT SHEET
+                        </button>
+                    </div>
+
+                    <!-- Game Mode View -->
+                    <div id="vnc-game-view" class="space-y-3">
+                        <div class="grid grid-cols-3 gap-1.5 font-mono-tech text-[10px]">
+                            <button type="button" onclick="loadVncScenario('oneWay')" id="vnc-sc-oneWay" class="p-1.5 rounded bg-black/60 border border-cyber-glow/50 text-cyber-glow truncate">
+                                L1: 單通 Audio
+                            </button>
+                            <button type="button" onclick="loadVncScenario('dtmf')" id="vnc-sc-dtmf" class="p-1.5 rounded bg-black/50 border border-cyber-border text-gray-300 hover:border-cyber-accent/50 truncate">
+                                L2: IVR DTMF
+                            </button>
+                            <button type="button" onclick="loadVncScenario('sip503')" id="vnc-sc-sip503" class="p-1.5 rounded bg-black/50 border border-cyber-border text-gray-300 hover:border-cyber-accent/50 truncate">
+                                L3: 503/C.34
+                            </button>
+                        </div>
+
+                        <div class="bg-black/50 border border-cyber-border rounded-lg p-3 space-y-2.5">
+                            <p id="vnc-intro" class="text-xs text-gray-200 leading-relaxed"></p>
+                            <p id="vnc-prompt" class="text-xs font-medium text-cyber-glow"></p>
+                            <div id="vnc-choices" class="space-y-1.5"></div>
+                            <div id="vnc-feedback" class="hidden text-xs p-2.5 rounded-lg leading-relaxed"></div>
+                            <div id="vnc-sop" class="hidden text-[11px] bg-cyber-card border border-cyber-accent/30 rounded-lg p-2.5 space-y-1"></div>
+                        </div>
+                    </div>
+
+                    <!-- Cheat Sheet View -->
+                    <div id="vnc-cheat-view" class="hidden space-y-2.5">
+                        <div class="grid grid-cols-3 gap-1.5 font-mono-tech text-[10px]">
+                            <button type="button" onclick="renderVncCheat('503')" class="p-1.5 rounded bg-black/60 border border-cyber-border text-rose-300 hover:border-rose-400/60">
+                                503 / C.34
+                            </button>
+                            <button type="button" onclick="renderVncCheat('486')" class="p-1.5 rounded bg-black/60 border border-cyber-border text-amber-300 hover:border-amber-400/60">
+                                SIP 486
+                            </button>
+                            <button type="button" onclick="renderVncCheat('rtp')" class="p-1.5 rounded bg-black/60 border border-cyber-border text-sky-300 hover:border-sky-400/60">
+                                1-Way RTP
+                            </button>
+                        </div>
+                        <div id="vnc-cheat-box" class="bg-black/50 border border-cyber-border rounded-lg p-3 text-xs space-y-2 leading-relaxed"></div>
+                    </div>
+
+                    <p class="text-[10px] font-mono-tech text-gray-500">
+                        // Advisory only. No live access; customer-impacting actions require Change Control.
+                    </p>
                 </div>
-                <div id="vnc-cheat-box" class="rounded-xl border border-white/10 bg-black/40 p-3 text-xs leading-relaxed space-y-2"></div>
-              </div>
             </div>
-          </div>
+
+            <!-- Tech Stack -->
+            <div class="space-y-2 pt-1">
+                <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider px-1">// Engineering Tech Stack</div>
+                <div class="flex flex-wrap gap-1.5 font-mono-tech text-[10px]">
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Python</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">PyTorch</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Deep RL</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">MQL5</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">SQL</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Prolog</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Tailwind CSS</span>
+                    <span class="px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-cyber-accent">Vercel</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- [02] ITeSHOP / System Shell Series -->
+        <section id="iteshop" class="space-y-3 scroll-mt-4">
+            <div class="flex justify-between items-center px-1">
+                <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider">// 02. ITESHOP // SYSTEM_SHELL SERIES</div>
+                <span class="text-[10px] font-mono-tech text-cyber-glow">ACTIVE</span>
+            </div>
+
+            <!-- Log #04 : Part 02 Resource Allocation -->
+            <a href="https://hk.iteshop.com/bit/all/fw26-singlesday-promotion-p2?tscode=affhr_hk10072391" target="_blank" rel="noopener noreferrer" class="block group">
+                <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5 border-l-2 border-l-cyber-glow">
+                    <div class="flex justify-between items-start">
+                        <div class="space-y-1.5">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-[10px] font-mono-tech px-2 py-0.5 rounded bg-cyber-glow/10 text-cyber-glow border border-cyber-glow/30">Log #04</span>
+                                <span class="text-[10px] font-mono-tech text-emerald-400 font-bold">2-ITEM 30% OFF | CODE: 26D11</span>
+                            </div>
+                            <h2 class="text-sm font-medium text-white group-hover:text-cyber-glow transition-colors">Part_02 Resource Unlocked</h2>
+                            <p class="text-xs text-gray-400">DANTON · AAPE · BAPY · BDG 優先配給</p>
+                        </div>
+                        <span class="text-xs font-mono-tech text-cyber-glow px-2.5 py-1 rounded bg-black/60 border border-cyber-border group-hover:bg-cyber-glow group-hover:text-black transition-all">ACCESS ↗</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Log #03 : Graphic Tee Overdrive -->
+            <a href="https://hk.iteshop.com/sit/all/graphic-tee-collection?tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_FastTSS26_6189" target="_blank" rel="noopener noreferrer" class="block group">
+                <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
+                    <div class="flex justify-between items-start">
+                        <div class="space-y-1.5">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-[10px] font-mono-tech px-2 py-0.5 rounded bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/30">Log #03</span>
+                                <span class="text-[10px] font-mono-tech text-emerald-400">FAST ORDER TEE $79+</span>
+                            </div>
+                            <h2 class="text-sm font-medium text-white group-hover:text-cyber-glow transition-colors">Graphic Tee Overdrive</h2>
+                            <p class="text-xs text-gray-400">FINGERCROXX · IZZUE · :CHOCOOLATE · 第一層外殼</p>
+                        </div>
+                        <span class="text-xs font-mono-tech text-cyber-accent px-2.5 py-1 rounded bg-black/60 border border-cyber-border group-hover:bg-cyber-accent group-hover:text-black transition-all">ACCESS ↗</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Shell Log #02 -->
+            <a href="https://hk.iteshop.com/sit/all?c=clothing%2523%2523%2523clothing_coatsjackets&tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_SITFALL202610_6454" target="_blank" rel="noopener noreferrer" class="block group">
+                <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
+                    <div class="flex justify-between items-start">
+                        <div class="space-y-1.5">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-[10px] font-mono-tech px-2 py-0.5 rounded bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/30">Log #02</span>
+                                <span class="text-[10px] font-mono-tech text-gray-400">VINTAGE_SHELL</span>
+                            </div>
+                            <h2 class="text-sm font-medium text-white group-hover:text-cyber-glow transition-colors">American Vintage Shell</h2>
+                            <p class="text-xs text-gray-400">BDG 麂皮 · Carhartt WIP 水洗 · GYDA 外殼</p>
+                        </div>
+                        <span class="text-xs font-mono-tech text-cyber-accent px-2.5 py-1 rounded bg-black/60 border border-cyber-border group-hover:bg-cyber-accent group-hover:text-black transition-all">ACCESS ↗</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Shell Log #01 -->
+            <a href="https://hk.iteshop.com/sit/men/clothing/coats%20%26%20jackets?tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_SITIMPORT2611_6512" target="_blank" rel="noopener noreferrer" class="block group">
+                <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
+                    <div class="flex justify-between items-start">
+                        <div class="space-y-1.5">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-[10px] font-mono-tech px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">Log #01</span>
+                                <span class="text-[10px] font-mono-tech text-gray-400">UTILITY_GEAR</span>
+                            </div>
+                            <h2 class="text-sm font-medium text-white group-hover:text-cyber-glow transition-colors">Hardened Utility Shell</h2>
+                            <p class="text-xs text-gray-400">Carhartt WIP OG Detroit · BEAMS 機能外衣</p>
+                        </div>
+                        <span class="text-xs font-mono-tech text-gray-400 px-2.5 py-1 rounded bg-black/60 border border-cyber-border group-hover:text-cyber-accent transition-all">ACCESS ↗</span>
+                    </div>
+                </div>
+            </a>
+        </section>
+
+        <!-- [03] Online Earn Research -->
+        <section id="earn-research" class="space-y-3 scroll-mt-4">
+            <div class="flex justify-between items-center px-1">
+                <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider">// 03. ONLINE EARN RESEARCH</div>
+                <span class="text-[10px] font-mono-tech text-amber-400/90">EXPERIMENTAL</span>
+            </div>
+
+            <a href="https://gomining.com/?ref=1LFGB31" target="_blank" rel="noopener noreferrer" class="block group">
+                <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-xl p-2 rounded-lg bg-black/40 border border-cyber-border">⚡</span>
+                            <div>
+                                <h2 class="text-sm font-medium text-white group-hover:text-cyber-accent transition-colors">Lab Node // 算力實驗節點</h2>
+                                <p class="text-xs text-gray-400">自動化收益測試 · GoMining</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-mono-tech text-amber-400/90 px-2 py-1 rounded bg-black/60 border border-cyber-border">TESTING</span>
+                    </div>
+                </div>
+            </a>
+        </section>
+
+        <!-- System Logs -->
+        <section class="space-y-3">
+            <div class="text-[11px] font-mono-tech text-gray-500 uppercase tracking-wider px-1">// System Logs & IG Notes</div>
+
+            <a href="https://www.instagram.com/lnt.rhythm" target="_blank" rel="noopener noreferrer" class="block group">
+                <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-xl p-2 rounded-lg bg-black/40 border border-cyber-border">📝</span>
+                            <div class="space-y-1">
+                                <h2 class="text-sm font-medium text-white group-hover:text-cyber-accent transition-colors">
+                                    System Log // 自動化哲學
+                                </h2>
+                                <p class="text-xs text-gray-400 leading-relaxed italic">
+                                    「與其盲目逞強，不如把精力轉化為靜默運轉的後台結構。」
+                                </p>
+                            </div>
+                        </div>
+                        <span class="text-[10px] font-mono-tech text-cyber-glow bg-black/60 px-2 py-1 rounded border border-cyber-border shrink-0 ml-2">IG ↗</span>
+                    </div>
+                </div>
+            </a>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full max-w-md mx-auto text-center py-4 z-10 border-t border-cyber-border/50 space-y-2">
+        <div class="flex justify-center space-x-4 text-xs font-mono-tech text-gray-400">
+            <a href="https://www.instagram.com/lnt.rhythm" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-glow transition-colors">LNT-RHYTHM IG</a>
+            <span>•</span>
+            <a href="https://huggingface.co/spaces/tnno/rl-bitcoin-trading-dashboard" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-glow transition-colors">Hugging Face</a>
+            <span>•</span>
+            <a href="https://gomining.com/?ref=1LFGB31" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-glow transition-colors">GoMining</a>
         </div>
-      </div>
-    </section>
+        <p class="text-[10px] text-gray-600 font-mono-tech">&copy; 2026 Int.rhythm // Nova_Lab. All rights reserved.</p>
+    </footer>
 
-    <!-- ============ [02] SHOP ============ -->
-    <section id="shop" class="border-t border-white/5 px-6 py-16 sm:px-8 lg:px-12 scroll-mt-16">
-      <div class="mx-auto max-w-6xl space-y-6">
-        <div>
-          <p class="font-mono-tech text-[11px] uppercase tracking-[0.25em] text-cyan-300/80">// 02. Side Business</p>
-          <h2 class="mt-1 text-2xl font-light text-white">ITE SHOP Curations</h2>
-        </div>
-        <div class="grid gap-4 sm:grid-cols-2">
-          <a href="https://hk.iteshop.com/bit/all/fw26-singlesday-promotion-p2?tscode=affhr_hk10072391" target="_blank" rel="noopener noreferrer" class="rounded-xl border border-white/10 bg-white/[0.02] p-4 transition hover:border-cyan-400/40">
-            <div class="font-mono-tech text-[10px] text-emerald-400">LOG #04 · CODE: 26D11</div>
-            <div class="mt-1 text-sm font-medium text-white">Part_02 Resource Unlocked</div>
-            <p class="mt-1 text-xs text-slate-400">DANTON · AAPE · BAPY · BDG</p>
-          </a>
-          <a href="https://hk.iteshop.com/sit/all/graphic-tee-collection?tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_FastTSS26_6189" target="_blank" rel="noopener noreferrer" class="rounded-xl border border-white/10 bg-white/[0.02] p-4 transition hover:border-cyan-400/40">
-            <div class="font-mono-tech text-[10px] text-cyan-300">LOG #03 · GRAPHIC TEE</div>
-            <div class="mt-1 text-sm font-medium text-white">Graphic Tee Overdrive</div>
-            <p class="mt-1 text-xs text-slate-400">FINGERCROXX · IZZUE · :CHOCOOLATE</p>
-          </a>
-        </div>
-      </div>
-    </section>
+    <script>
+        const VNC_SCENARIOS = {
+            oneWay: {
+                intro: "02:17 某新割接 SIP Trunk 出現單通（One-Way Audio）：對方聽到本端，但本端聽唔到對方。NMS 顯示 Trunk In-Service。",
+                q1: "未搵 Carrier 理論前，你第一步點做？",
+                c1: [
+                    { label: "1. 確認 Scope：係單一號碼、呢條 Trunk 定全網？", ok: true, fb: "「Before blaming the carrier, let’s confirm the scope.」確認只限呢條新 SIP Trunk。" },
+                    { label: "2. 直接重啟 SBC 媒體板卡清 Session", ok: false, fb: "⚠️ 未確認範圍同未經 Change Control 前直接重啟板卡屬高風險操作。" }
+                ],
+                q2: "鎖定單一 Trunk 後，下一步查咩？",
+                c2: [
+                    { label: "抽樣查 SIP 200 OK 嘅 SDP IP/Port 與雙向 RTP", solve: true, fb: "✅ 發現 SDP 帶出未經 NAT 改寫嘅 Private IP，導致回向 RTP 唔通。" }
+                ],
+                sop: ["先確認 Scope 限於單一 Trunk。", "查 SIP/SDP 媒體位址與雙向 RTP。", "經 Change Control 修正 SBC NAT 媒體處理並撥測。"]
+            },
+            dtmf: {
+                intro: "10:05 語音 IVR 收到大量反映：聽到歡迎語音但按鍵（DTMF）冇反應。昨晚剛做過 SBC Codec 微調。",
+                q1: "你會優先檢查邊一項？",
+                c1: [
+                    { label: "1. 查 DTMF 傳送方式與 RTP Payload 協商", ok: true, fb: "啱晒！改過 Codec 後先查 RFC 2833 Payload Type / SIP INFO / In-band 一致性。" },
+                    { label: "2. 未經審批直接將所有 IVR 改轉人工坐席", ok: false, fb: "⚠️ 全量改路由會令坐席瞬間過載，需評估影響並走 Change Control。" }
+                ],
+                q2: "發現 RFC 2833 Payload Type 唔一致，下一步？",
+                c2: [
+                    { label: "留低脫敏紀錄，走 Change Control 統一設定並測試", solve: true, fb: "✅ 經變更審批修正 Payload Type 後 IVR 按鍵恢復正常。" }
+                ],
+                sop: ["核對 IVR 範圍並關聯近期 Codec/SBC 變更。", "檢查 RFC 2833 / SIP INFO / In-band 協商。", "經 Change Control 修正設定並做端到端按鍵測試。"]
+            },
+            sip503: {
+                intro: "高峰時段突然出現大量 SIP 503，伴隨部分 Q.850 Cause 34 跡象，接通率下滑。",
+                q1: "Major Incident 苗頭出現，第一步點做？",
+                c1: [
+                    { label: "1. 確認 Scope、Trunk 狀態與近期變更／容量", ok: true, fb: "好冷靜！先睇係單一目的地／Trunk 定全網，再查通道使用率與變更紀錄。" },
+                    { label: "2. 未經授權直接 Disable 涉事 Trunk", ok: false, fb: "⚠️ 未經 Change Control 授權直接 Disable Trunk 可能令其餘路由過載。" }
+                ],
+                q2: "確認某主 Trunk 通道接近滿載，下一步？",
+                c2: [
+                    { label: "整理脫敏時間戳、告警 ID 與容量現況作 Escalation", solve: true, fb: "✅ 「A clean escalation package saves everyone time.」帶齊證據升級跟進。" }
+                ],
+                sop: ["確認影響範圍、Trunk 容量與近期變更。", "收集脫敏 Call-ID、時間戳、告警 ID 及 CDR 摘要。", "按 Escalation 準則交接，變更路由/容量需經 Change Control。"]
+            }
+        };
 
-    <!-- ============ [03] LAB & [04] NOTES & CONTACT ============ -->
-    <section id="lab" class="border-t border-white/5 px-6 py-16 sm:px-8 lg:px-12 scroll-
+        const VNC_CHEATS = {
+            "503": "<strong>SIP 503 / Q.850 Cause 34：</strong>多數代表通道爆滿、路由暫時不可用、維護中或上游拒收。<br><strong>排查：</strong>1) 確認 Scope 2) 查 Trunk/Route 狀態與使用率 3) 查近期變更及 <code>Reason</code> Header。",
+            "486": "<strong>SIP 486 (Busy Here)：</strong>被叫方忙碌。唔好一見 486 就當故障，先分清係正常忙線定係短時間異常暴增。<br><strong>排查：</strong>核對受影響號碼／路由分佈與 CDR 趨勢。",
+            "rtp": "<strong>One-Way Audio：</strong>信令通但單向／無語音。<br><strong>排查：</strong>1) 確認單通方向 2) 查 SDP 媒體 IP/Port 與雙向 RTP 3) 查 NAT、防火牆、SBC 及 Codec（改動需 Change Control）。"
+        };
+
+        let vncState = { open: false, mode: "game", sc: "oneWay", step: 0, xp: 0, solved: [] };
+
+        function toggleVoiceNoc() {
+            vncState.open = !vncState.open;
+            document.getElementById("vnc-console").classList.toggle("hidden", !vncState.open);
+            document.getElementById("vnc-toggle-btn").textContent = vncState.open ? "CLOSE ▴" : "OPEN ▾";
+            if (vncState.open) renderVncGame();
+        }
+
+        function switchVncMode(m) {
+            vncState.mode = m;
+            document.getElementById("vnc-mode-label").textContent = m === "game" ? "【🎮 GAME MODE】" : "【🚨 CHEAT SHEET】";
+            document.getElementById("vnc-game-view").classList.toggle("hidden", m !== "game");
+            document.getElementById("vnc-cheat-view").classList.toggle("hidden", m !== "cheat");
+            document.getElementById("vnc-tab-game").className = m === "game"
+                ? "py-1.5 px-2 rounded-lg bg-cyber-accent/20 text-cyber-glow border border-cyber-accent/50 transition-colors"
+                : "py-1.5 px-2 rounded-lg bg-black/50 text-gray-400 border border-cyber-border hover:text-white transition-colors";
+            document.getElementById("vnc-tab-cheat").className = m === "cheat"
+                ? "py-1.5 px-2 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-400/50 transition-colors"
+                : "py-1.5 px-2 rounded-lg bg-black/50 text-gray-400 border border-cyber-border hover:text-white transition-colors";
+            if (m === "cheat") renderVncCheat("503");
+        }
+
+        function loadVncScenario(id) {
+            vncState.sc = id;
+            vncState.step = 0;
+            ["oneWay", "dtmf", "sip503"].forEach((k) => {
+                const el = document.getElementById("vnc-sc-" + k);
+                el.className = k === id
+                    ? "p-1.5 rounded bg-black/60 border border-cyber-glow/50 text-cyber-glow truncate"
+                    : "p-1.5 rounded bg-black/50 border border-cyber-border text-gray-300 hover:border-cyber-accent/50 truncate";
+            });
+            document.getElementById("vnc-feedback").classList.add("hidden");
+            document.getElementById("vnc-sop").classList.add("hidden");
+            renderVncGame();
+        }
+
+        function renderVncGame() {
+            const s = VNC_SCENARIOS[vncState.sc];
+            document.getElementById("vnc-intro").textContent = s.intro;
+            const box = document.getElementById("vnc-choices");
+            box.innerHTML = "";
+
+            if (vncState.step === 0) {
+                document.getElementById("vnc-prompt").textContent = s.q1;
+                s.c1.forEach((c) => {
+                    const b = document.createElement("button");
+                    b.type = "button";
+                    b.className = "w-full text-left text-xs p-2 rounded bg-cyber-card border border-cyber-border hover:border-cyber-accent text-gray-200 transition-colors";
+                    b.textContent = c.label;
+                    b.onclick = () => {
+                        showVncFeedback(c.fb, c.ok);
+                        if (c.ok) { vncState.step = 1; renderVncGame(); }
+                    };
+                    box.appendChild(b);
+                });
+            } else if (vncState.step === 1) {
+                document.getElementById("vnc-prompt").textContent = s.q2;
+                s.c2.forEach((c) => {
+                    const b = document.createElement("button");
+                    b.type = "button";
+                    b.className = "w-full text-left text-xs p-2 rounded bg-cyber-card border border-cyber-border hover:border-cyber-glow text-gray-200 transition-colors";
+                    b.textContent = c.label;
+                    b.onclick = () => {
+                        showVncFeedback(c.fb, true);
+                        vncState.step = 2;
+                        if (!vncState.solved.includes(vncState.sc)) {
+                            vncState.solved.push(vncState.sc);
+                            vncState.xp += 100;
+                        }
+                        updateVncHud();
+                        renderVncSop(s.sop);
+                        box.innerHTML = "";
+                    };
+                    box.appendChild(b);
+                });
+            } else {
+                document.getElementById("vnc-prompt").textContent = "已完成排查與 SOP 總結（可切換上方關卡重玩）。";
+            }
+        }
+
+        function showVncFeedback(msg, good) {
+            const el = document.getElementById("vnc-feedback");
+            el.classList.remove("hidden");
+            el.className = good
+                ? "text-xs p-2.5 rounded-lg leading-relaxed bg-emerald-500/10 border border-emerald-500/30 text-emerald-200"
+                : "text-xs p-2.5 rounded-lg leading-relaxed bg-amber-500/10 border border-amber-500/30 text-amber-200";
+            el.textContent = msg;
+        }
+
+        function renderVncSop(lines) {
+            const el = document.getElementById("vnc-sop");
+            el.classList.remove("hidden");
+            el.innerHTML = "<div class='font-mono-tech text-cyber-accent font-bold'>// SOP SUMMARY (+100 XP)</div>" +
+                lines.map((l, i) => `<div class='text-gray-300'>${i + 1}. ${l}</div>`).join("");
+        }
+
+        function renderVncCheat(key) {
+            document.getElementById("vnc-cheat-box").innerHTML = VNC_CHEATS[key];
+        }
+
+        function updateVncHud() {
+            document.getElementById("vnc-xp").textContent = `⚡ ${vncState.xp} XP`;
+            document.getElementById("vnc-solved").textContent = `✓ ${vncState.solved.length}/3`;
+        }
+    </script>
+
+</body>
+</html>
