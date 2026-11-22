@@ -112,17 +112,105 @@
                 </div>
             </a>
 
-            <!-- 可按需要取消註解或替換為你其他 Coding / 專案連結
-            <div class="glow-box bg-cyber-card/70 rounded-xl p-4 border-dashed">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h2 class="text-sm font-medium text-gray-200">Prolog Fault Diagnostic & Voice NOC</h2>
-                        <p class="text-xs text-gray-400">電訊故障推理系統與互動排障模擬專案</p>
+            <!-- VoiceNOC Survival Interactive Module -->
+            <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 border-l-2 border-l-cyber-accent">
+                <div class="flex justify-between items-center gap-2">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl p-2 rounded-lg bg-black/40 border border-cyber-border">🎧</span>
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <h2 class="text-sm font-medium text-white">VoiceNOC Survival</h2>
+                                <span class="text-[10px] font-mono-tech px-1.5 py-0.5 rounded bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/30">INTERACTIVE</span>
+                            </div>
+                            <p class="text-xs text-gray-400">Core Voice 排障模擬 · 急用速查手冊</p>
+                        </div>
                     </div>
-                    <span class="text-[10px] font-mono-tech text-gray-500 px-2 py-0.5 rounded bg-black/50 border border-cyber-border">ARCHIVE</span>
+                    <button
+                        type="button"
+                        id="vnc-toggle-btn"
+                        onclick="toggleVoiceNoc()"
+                        class="text-[11px] font-mono-tech text-cyber-glow px-2.5 py-1.5 rounded bg-black/60 border border-cyber-border hover:bg-cyber-glow hover:text-black transition-all shrink-0"
+                    >
+                        OPEN ▾
+                    </button>
+                </div>
+
+                <!-- Expandable NOC Console -->
+                <div id="vnc-console" class="hidden mt-4 pt-4 border-t border-cyber-border space-y-3">
+                    <!-- Status Strip -->
+                    <div class="flex flex-wrap items-center justify-between gap-2 text-[11px] font-mono-tech bg-black/50 border border-cyber-border rounded-lg px-3 py-2">
+                        <span id="vnc-mode-label" class="text-emerald-400">【🎮 GAME MODE】</span>
+                        <div class="flex items-center space-x-2">
+                            <span id="vnc-xp" class="text-amber-300">⚡ 0 XP</span>
+                            <span class="text-gray-600">|</span>
+                            <span id="vnc-solved" class="text-sky-300">✓ 0/3</span>
+                        </div>
+                    </div>
+
+                    <!-- Mode Tabs -->
+                    <div class="grid grid-cols-2 gap-2 font-mono-tech text-[11px]">
+                        <button
+                            type="button"
+                            id="vnc-tab-game"
+                            onclick="switchVncMode('game')"
+                            class="py-1.5 px-2 rounded-lg bg-cyber-accent/20 text-cyber-glow border border-cyber-accent/50 transition-colors"
+                        >
+                            🎮 GAME MODE
+                        </button>
+                        <button
+                            type="button"
+                            id="vnc-tab-cheat"
+                            onclick="switchVncMode('cheat')"
+                            class="py-1.5 px-2 rounded-lg bg-black/50 text-gray-400 border border-cyber-border hover:text-white transition-colors"
+                        >
+                            🚨 CHEAT SHEET
+                        </button>
+                    </div>
+
+                    <!-- Game Mode View -->
+                    <div id="vnc-game-view" class="space-y-3">
+                        <div class="grid grid-cols-3 gap-1.5 font-mono-tech text-[10px]">
+                            <button type="button" onclick="loadVncScenario('oneWay')" id="vnc-sc-oneWay" class="p-1.5 rounded bg-black/60 border border-cyber-glow/50 text-cyber-glow truncate">
+                                L1: 單通 Audio
+                            </button>
+                            <button type="button" onclick="loadVncScenario('dtmf')" id="vnc-sc-dtmf" class="p-1.5 rounded bg-black/50 border border-cyber-border text-gray-300 hover:border-cyber-accent/50 truncate">
+                                L2: IVR DTMF
+                            </button>
+                            <button type="button" onclick="loadVncScenario('sip503')" id="vnc-sc-sip503" class="p-1.5 rounded bg-black/50 border border-cyber-border text-gray-300 hover:border-cyber-accent/50 truncate">
+                                L3: 503/C.34
+                            </button>
+                        </div>
+
+                        <div class="bg-black/50 border border-cyber-border rounded-lg p-3 space-y-2.5">
+                            <p id="vnc-intro" class="text-xs text-gray-200 leading-relaxed"></p>
+                            <p id="vnc-prompt" class="text-xs font-medium text-cyber-glow"></p>
+                            <div id="vnc-choices" class="space-y-1.5"></div>
+                            <div id="vnc-feedback" class="hidden text-xs p-2.5 rounded-lg leading-relaxed"></div>
+                            <div id="vnc-sop" class="hidden text-[11px] bg-cyber-card border border-cyber-accent/30 rounded-lg p-2.5 space-y-1"></div>
+                        </div>
+                    </div>
+
+                    <!-- Cheat Sheet View -->
+                    <div id="vnc-cheat-view" class="hidden space-y-2.5">
+                        <div class="grid grid-cols-3 gap-1.5 font-mono-tech text-[10px]">
+                            <button type="button" onclick="renderVncCheat('503')" class="p-1.5 rounded bg-black/60 border border-cyber-border text-rose-300 hover:border-rose-400/60">
+                                503 / C.34
+                            </button>
+                            <button type="button" onclick="renderVncCheat('486')" class="p-1.5 rounded bg-black/60 border border-cyber-border text-amber-300 hover:border-amber-400/60">
+                                SIP 486
+                            </button>
+                            <button type="button" onclick="renderVncCheat('rtp')" class="p-1.5 rounded bg-black/60 border border-cyber-border text-sky-300 hover:border-sky-400/60">
+                                1-Way RTP
+                            </button>
+                        </div>
+                        <div id="vnc-cheat-box" class="bg-black/50 border border-cyber-border rounded-lg p-3 text-xs space-y-2 leading-relaxed"></div>
+                    </div>
+
+                    <p class="text-[10px] font-mono-tech text-gray-500">
+                        // Advisory only. No live access; customer-impacting actions require Change Control.
+                    </p>
                 </div>
             </div>
-            -->
 
             <!-- Tech Stack -->
             <div class="space-y-2 pt-1">
@@ -165,7 +253,7 @@
             </a>
 
             <!-- Log #03 : Graphic Tee Overdrive -->
-            <a href="http://hk.iteshop.com/sit/all/graphic-tee-collection?tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_FastTSS26_6189" target="_blank" rel="noopener noreferrer" class="block group">
+            <a href="https://hk.iteshop.com/sit/all/graphic-tee-collection?tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_FastTSS26_6189" target="_blank" rel="noopener noreferrer" class="block group">
                 <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
                     <div class="flex justify-between items-start">
                         <div class="space-y-1.5">
@@ -182,7 +270,7 @@
             </a>
 
             <!-- Shell Log #02 -->
-            <a href="http://hk.iteshop.com/sit/all?c=clothing%2523%2523%2523clothing_coatsjackets&tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_SITFALL202610_6454" target="_blank" rel="noopener noreferrer" class="block group">
+            <a href="https://hk.iteshop.com/sit/all?c=clothing%2523%2523%2523clothing_coatsjackets&tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_SITFALL202610_6454" target="_blank" rel="noopener noreferrer" class="block group">
                 <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
                     <div class="flex justify-between items-start">
                         <div class="space-y-1.5">
@@ -199,7 +287,7 @@
             </a>
 
             <!-- Shell Log #01 -->
-            <a href="http://hk.iteshop.com/sit/men/clothing/coats%20%26%20jackets?tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_SITIMPORT2611_6512" target="_blank" rel="noopener noreferrer" class="block group">
+            <a href="https://hk.iteshop.com/sit/men/clothing/coats%20%26%20jackets?tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_SITIMPORT2611_6512" target="_blank" rel="noopener noreferrer" class="block group">
                 <div class="glow-box bg-cyber-card rounded-xl p-4 transition-all duration-300 group-hover:-translate-y-0.5">
                     <div class="flex justify-between items-start">
                         <div class="space-y-1.5">
@@ -276,6 +364,162 @@
         </div>
         <p class="text-[10px] text-gray-600 font-mono-tech">&copy; 2026 Int.rhythm // Nova_Lab. All rights reserved.</p>
     </footer>
+
+    <script>
+        const VNC_SCENARIOS = {
+            oneWay: {
+                intro: "02:17 某新割接 SIP Trunk 出現單通（One-Way Audio）：對方聽到本端，但本端聽唔到對方。NMS 顯示 Trunk In-Service。",
+                q1: "未搵 Carrier 理論前，你第一步點做？",
+                c1: [
+                    { label: "1. 確認 Scope：係單一號碼、呢條 Trunk 定全網？", ok: true, fb: "「Before blaming the carrier, let’s confirm the scope.」確認只限呢條新 SIP Trunk。" },
+                    { label: "2. 直接重啟 SBC 媒體板卡清 Session", ok: false, fb: "⚠️ 未確認範圍同未經 Change Control 前直接重啟板卡屬高風險操作。" }
+                ],
+                q2: "鎖定單一 Trunk 後，下一步查咩？",
+                c2: [
+                    { label: "抽樣查 SIP 200 OK 嘅 SDP IP/Port 與雙向 RTP", solve: true, fb: "✅ 發現 SDP 帶出未經 NAT 改寫嘅 Private IP，導致回向 RTP 唔通。" }
+                ],
+                sop: ["先確認 Scope 限於單一 Trunk。", "查 SIP/SDP 媒體位址與雙向 RTP。", "經 Change Control 修正 SBC NAT 媒體處理並撥測。"]
+            },
+            dtmf: {
+                intro: "10:05 語音 IVR 收到大量反映：聽到歡迎語音但按鍵（DTMF）冇反應。昨晚剛做過 SBC Codec 微調。",
+                q1: "你會優先檢查邊一項？",
+                c1: [
+                    { label: "1. 查 DTMF 傳送方式與 RTP Payload 協商", ok: true, fb: "啱晒！改過 Codec 後先查 RFC 2833 Payload Type / SIP INFO / In-band 一致性。" },
+                    { label: "2. 未經審批直接將所有 IVR 改轉人工坐席", ok: false, fb: "⚠️ 全量改路由會令坐席瞬間過載，需評估影響並走 Change Control。" }
+                ],
+                q2: "發現 RFC 2833 Payload Type 唔一致，下一步？",
+                c2: [
+                    { label: "留低脫敏紀錄，走 Change Control 統一設定並測試", solve: true, fb: "✅ 經變更審批修正 Payload Type 後 IVR 按鍵恢復正常。" }
+                ],
+                sop: ["核對 IVR 範圍並關聯近期 Codec/SBC 變更。", "檢查 RFC 2833 / SIP INFO / In-band 協商。", "經 Change Control 修正設定並做端到端按鍵測試。"]
+            },
+            sip503: {
+                intro: "高峰時段突然出現大量 SIP 503，伴隨部分 Q.850 Cause 34 跡象，接通率下滑。",
+                q1: "Major Incident 苗頭出現，第一步點做？",
+                c1: [
+                    { label: "1. 確認 Scope、Trunk 狀態與近期變更／容量", ok: true, fb: "好冷靜！先睇係單一目的地／Trunk 定全網，再查通道使用率與變更紀錄。" },
+                    { label: "2. 未經授權直接 Disable 涉事 Trunk", ok: false, fb: "⚠️ 未經 Change Control 授權直接 Disable Trunk 可能令其餘路由過載。" }
+                ],
+                q2: "確認某主 Trunk 通道接近滿載，下一步？",
+                c2: [
+                    { label: "整理脫敏時間戳、告警 ID 與容量現況作 Escalation", solve: true, fb: "✅ 「A clean escalation package saves everyone time.」帶齊證據升級跟進。" }
+                ],
+                sop: ["確認影響範圍、Trunk 容量與近期變更。", "收集脫敏 Call-ID、時間戳、告警 ID 及 CDR 摘要。", "按 Escalation 準則交接，變更路由/容量需經 Change Control。"]
+            }
+        };
+
+        const VNC_CHEATS = {
+            "503": "<strong>SIP 503 / Q.850 Cause 34：</strong>多數代表通道爆滿、路由暫時不可用、維護中或上游拒收。<br><strong>排查：</strong>1) 確認 Scope 2) 查 Trunk/Route 狀態與使用率 3) 查近期變更及 <code>Reason</code> Header。",
+            "486": "<strong>SIP 486 (Busy Here)：</strong>被叫方忙碌。唔好一見 486 就當故障，先分清係正常忙線定係短時間異常暴增。<br><strong>排查：</strong>核對受影響號碼／路由分佈與 CDR 趨勢。",
+            "rtp": "<strong>One-Way Audio：</strong>信令通但單向／無語音。<br><strong>排查：</strong>1) 確認單通方向 2) 查 SDP 媒體 IP/Port 與雙向 RTP 3) 查 NAT、防火牆、SBC 及 Codec（改動需 Change Control）。"
+        };
+
+        let vncState = { open: false, mode: "game", sc: "oneWay", step: 0, xp: 0, solved: [] };
+
+        function toggleVoiceNoc() {
+            vncState.open = !vncState.open;
+            document.getElementById("vnc-console").classList.toggle("hidden", !vncState.open);
+            document.getElementById("vnc-toggle-btn").textContent = vncState.open ? "CLOSE ▴" : "OPEN ▾";
+            if (vncState.open) renderVncGame();
+        }
+
+        function switchVncMode(m) {
+            vncState.mode = m;
+            document.getElementById("vnc-mode-label").textContent = m === "game" ? "【🎮 GAME MODE】" : "【🚨 CHEAT SHEET】";
+            document.getElementById("vnc-game-view").classList.toggle("hidden", m !== "game");
+            document.getElementById("vnc-cheat-view").classList.toggle("hidden", m !== "cheat");
+            document.getElementById("vnc-tab-game").className = m === "game"
+                ? "py-1.5 px-2 rounded-lg bg-cyber-accent/20 text-cyber-glow border border-cyber-accent/50 transition-colors"
+                : "py-1.5 px-2 rounded-lg bg-black/50 text-gray-400 border border-cyber-border hover:text-white transition-colors";
+            document.getElementById("vnc-tab-cheat").className = m === "cheat"
+                ? "py-1.5 px-2 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-400/50 transition-colors"
+                : "py-1.5 px-2 rounded-lg bg-black/50 text-gray-400 border border-cyber-border hover:text-white transition-colors";
+            if (m === "cheat") renderVncCheat("503");
+        }
+
+        function loadVncScenario(id) {
+            vncState.sc = id;
+            vncState.step = 0;
+            ["oneWay", "dtmf", "sip503"].forEach((k) => {
+                const el = document.getElementById("vnc-sc-" + k);
+                el.className = k === id
+                    ? "p-1.5 rounded bg-black/60 border border-cyber-glow/50 text-cyber-glow truncate"
+                    : "p-1.5 rounded bg-black/50 border border-cyber-border text-gray-300 hover:border-cyber-accent/50 truncate";
+            });
+            document.getElementById("vnc-feedback").classList.add("hidden");
+            document.getElementById("vnc-sop").classList.add("hidden");
+            renderVncGame();
+        }
+
+        function renderVncGame() {
+            const s = VNC_SCENARIOS[vncState.sc];
+            document.getElementById("vnc-intro").textContent = s.intro;
+            const box = document.getElementById("vnc-choices");
+            box.innerHTML = "";
+
+            if (vncState.step === 0) {
+                document.getElementById("vnc-prompt").textContent = s.q1;
+                s.c1.forEach((c) => {
+                    const b = document.createElement("button");
+                    b.type = "button";
+                    b.className = "w-full text-left text-xs p-2 rounded bg-cyber-card border border-cyber-border hover:border-cyber-accent text-gray-200 transition-colors";
+                    b.textContent = c.label;
+                    b.onclick = () => {
+                        showVncFeedback(c.fb, c.ok);
+                        if (c.ok) { vncState.step = 1; renderVncGame(); }
+                    };
+                    box.appendChild(b);
+                });
+            } else if (vncState.step === 1) {
+                document.getElementById("vnc-prompt").textContent = s.q2;
+                s.c2.forEach((c) => {
+                    const b = document.createElement("button");
+                    b.type = "button";
+                    b.className = "w-full text-left text-xs p-2 rounded bg-cyber-card border border-cyber-border hover:border-cyber-glow text-gray-200 transition-colors";
+                    b.textContent = c.label;
+                    b.onclick = () => {
+                        showVncFeedback(c.fb, true);
+                        vncState.step = 2;
+                        if (!vncState.solved.includes(vncState.sc)) {
+                            vncState.solved.push(vncState.sc);
+                            vncState.xp += 100;
+                        }
+                        updateVncHud();
+                        renderVncSop(s.sop);
+                        box.innerHTML = "";
+                    };
+                    box.appendChild(b);
+                });
+            } else {
+                document.getElementById("vnc-prompt").textContent = "已完成排查與 SOP 總結（可切換上方關卡重玩）。";
+            }
+        }
+
+        function showVncFeedback(msg, good) {
+            const el = document.getElementById("vnc-feedback");
+            el.classList.remove("hidden");
+            el.className = good
+                ? "text-xs p-2.5 rounded-lg leading-relaxed bg-emerald-500/10 border border-emerald-500/30 text-emerald-200"
+                : "text-xs p-2.5 rounded-lg leading-relaxed bg-amber-500/10 border border-amber-500/30 text-amber-200";
+            el.textContent = msg;
+        }
+
+        function renderVncSop(lines) {
+            const el = document.getElementById("vnc-sop");
+            el.classList.remove("hidden");
+            el.innerHTML = "<div class='font-mono-tech text-cyber-accent font-bold'>// SOP SUMMARY (+100 XP)</div>" +
+                lines.map((l, i) => `<div class='text-gray-300'>${i + 1}. ${l}</div>`).join("");
+        }
+
+        function renderVncCheat(key) {
+            document.getElementById("vnc-cheat-box").innerHTML = VNC_CHEATS[key];
+        }
+
+        function updateVncHud() {
+            document.getElementById("vnc-xp").textContent = `⚡ ${vncState.xp} XP`;
+            document.getElementById("vnc-solved").textContent = `✓ ${vncState.solved.length}/3`;
+        }
+    </script>
 
 </body>
 </html>
