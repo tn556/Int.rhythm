@@ -239,7 +239,7 @@
             </div>
           </a>
 
-<!-- VoiceNOC Survival 完整卡片（內建演練 + Hugging Face + Poe） -->
+          <!-- VoiceNOC Survival 完整卡片 -->
           <div class="rounded-2xl border border-cyan-400/25 bg-white/[0.02] p-6 space-y-4">
             <div class="flex items-start justify-between gap-3">
               <div class="space-y-1.5">
@@ -269,7 +269,7 @@
               </button>
             </div>
 
-            <!-- 內建迷你模擬器（撳 LAUNCH ▾ 展開） -->
+            <!-- 內建迷你模擬器 -->
             <div id="vnc-console" class="hidden border-t border-white/10 pt-4 space-y-3">
               <div class="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-white/10 bg-black/40 px-3 py-2 font-mono-tech text-[11px]">
                 <span id="vnc-mode-label" class="text-emerald-300">【🎮 GAME MODE】</span>
@@ -286,7 +286,7 @@
                   type="button"
                   id="vnc-tab-game"
                   onclick="switchVncMode('game')"
-                  class="rounded-lg border border-cyan-400/50 bg-cyan-400/15 py-1.5 text-cyan-200"
+                  class="rounded-lg border border-cyan-400/50 bg-cyan-400/15 py-1.5 text-cyan-200 transition"
                 >
                   🎮 GAME MODE
                 </button>
@@ -295,7 +295,7 @@
                   type="button"
                   id="vnc-tab-cheat"
                   onclick="switchVncMode('cheat')"
-                  class="rounded-lg border border-white/10 bg-black/40 py-1.5 text-slate-400 hover:text-white"
+                  class="rounded-lg border border-white/10 bg-black/40 py-1.5 text-slate-400 hover:text-white transition"
                 >
                   🚨 CHEAT SHEET
                 </button>
@@ -303,15 +303,30 @@
 
               <div id="vnc-game-view" class="space-y-3">
                 <div class="grid grid-cols-3 gap-1.5 font-mono-tech text-[10px]">
-                  <button type="button" onclick="loadVncScenario('oneWay')" class="truncate rounded border border-cyan-400/50 bg-black/50 p-1.5 text-cyan-200">
+                  <button
+                    type="button"
+                    id="vnc-sc-oneWay"
+                    onclick="loadVncScenario('oneWay')"
+                    class="truncate rounded border border-cyan-400/50 bg-cyan-400/10 p-1.5 text-cyan-200 transition"
+                  >
                     L1: 單通 Audio
                   </button>
 
-                  <button type="button" onclick="loadVncScenario('dtmf')" class="truncate rounded border border-white/10 bg-black/40 p-1.5 text-slate-300">
+                  <button
+                    type="button"
+                    id="vnc-sc-dtmf"
+                    onclick="loadVncScenario('dtmf')"
+                    class="truncate rounded border border-white/10 bg-black/40 p-1.5 text-slate-300 hover:border-cyan-400/30 transition"
+                  >
                     L2: IVR DTMF
                   </button>
 
-                  <button type="button" onclick="loadVncScenario('sip503')" class="truncate rounded border border-white/10 bg-black/40 p-1.5 text-slate-300">
+                  <button
+                    type="button"
+                    id="vnc-sc-sip503"
+                    onclick="loadVncScenario('sip503')"
+                    class="truncate rounded border border-white/10 bg-black/40 p-1.5 text-slate-300 hover:border-cyan-400/30 transition"
+                  >
                     L3: 503/C.34
                   </button>
                 </div>
@@ -332,408 +347,4 @@
               </div>
 
               <div id="vnc-cheat-view" class="hidden space-y-2.5">
-                <div class="grid grid-cols-3 gap-1.5 font-mono-tech text-[10px]">
-                  <button type="button" onclick="renderVncCheat('503')" class="rounded border border-white/10 bg-black/50 p-1.5 text-rose-300">
-                    503 / C.34
-                  </button>
-
-                  <button type="button" onclick="renderVncCheat('486')" class="rounded border border-white/10 bg-black/50 p-1.5 text-amber-300">
-                    SIP 486
-                  </button>
-
-                  <button type="button" onclick="renderVncCheat('rtp')" class="rounded border border-white/10 bg-black/50 p-1.5 text-sky-300">
-                    1-Way RTP
-                  </button>
-                </div>
-
-                <div id="vnc-cheat-box" class="rounded-xl border border-white/10 bg-black/40 p-3 text-xs leading-relaxed space-y-2">
-                  <p class="text-slate-400">選擇一個主題查看快速排查指引。</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- 外部完整版連結區：Hugging Face 主打 + Poe 低調副連結 -->
-            <div class="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
-              <a
-                href="https://huggingface.co/spaces/tnno/VoiceNOCSurvival"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-1.5 rounded-lg bg-cyan-400/15 hover:bg-cyan-400/25 border border-cyan-400/40 px-3.5 py-1.5 text-xs font-medium text-cyan-200 transition"
-              >
-                <span>Open Full Space</span>
-                <span aria-hidden="true">↗</span>
-              </a>
-
-     TML
-              <a
-                href="https://poe.com/VoiceNOCSurvival"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-[11px] text-slate-500 hover:text-cyan-300 transition underline-offset-4 hover:underline"
-              >
-                Also available as a Poe bot →
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  <!-- ============ [02] SHOP ============ -->
-    <section id="shop" class="border-t border-white/5 px-6 py-16 sm:px-8 lg:px-12 scroll-mt-16">
-      <div class="mx-auto max-w-6xl space-y-6">
-        <div>
-          <p class="font-mono-tech text-[11px] uppercase tracking-[0.25em] text-cyan-300/80">
-            // 02. Side Business
-          </p>
-
-          <h2 class="mt-1 text-2xl font-light text-white">
-            ITE SHOP Curations
-          </h2>
-        </div>
-
-        <div class="grid gap-4 sm:grid-cols-2">
-          <a
-            href="https://hk.iteshop.com/?tscode=affhr_hk10072391"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="rounded-xl border border-white/10 bg-white/[0.02] p-4 transition hover:border-cyan-400/40"
-          >
-            <div class="font-mono-tech text-[10px] text-emerald-400">
-              LOG #04 · STOREFRONT
-            </div>
-
-            <div class="mt-1 text-sm font-medium text-white">
-              ITE SHOP Main Index
-            </div>
-
-            <p class="mt-1 text-xs text-slate-400">
-              DANTON · AAPE · BAPY · BDG
-            </p>
-          </a>
-
-          <a
-            href="https://hk.iteshop.com/sit/all/graphic-tee-collection?tscode=affhr_hk10072391&utm_source=retail&utm_medium=itesell_FastTSS26_6189"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="rounded-xl border border-white/10 bg-white/[0.02] p-4 transition hover:border-cyan-400/40"
-          >
-            <div class="font-mono-tech text-[10px] text-cyan-300">
-              LOG #03 · GRAPHIC TEE
-            </div>
-
-            <div class="mt-1 text-sm font-medium text-white">
-              Graphic Tee Overdrive
-            </div>
-
-            <p class="mt-1 text-xs text-slate-400">
-              FINGERCROXX · IZZUE · :CHOCOOLATE
-            </p>
-          </a>
-        </div>
-      </div>
-    </section>
-    <!-- ============ [03] LAB ============ -->
-    <section id="lab" class="border-t border-white/5 px-6 py-16 sm:px-8 lg:px-12 scroll-mt-16">
-      <div class="mx-auto max-w-6xl space-y-6">
-        <div>
-          <p class="font-mono-tech text-[11px] uppercase tracking-[0.25em] text-cyan-300/80">
-            // 03. Experiments
-          </p>
-
-          <h2 class="mt-1 text-2xl font-light text-white">
-            Earn Lab
-          </h2>
-        </div>
-
-        <div class="rounded-xl border border-white/10 bg-white/[0.02] p-4">
-          <div class="font-mono-tech text-[10px] text-cyan-300">
-            LAB NODE · COMPUTE EXPERIMENT
-          </div>
-
-          <div class="mt-1 text-sm font-medium text-white">
-            Automated Compute Allocation
-          </div>
-
-          <p class="mt-1 text-xs text-slate-400">
-            A personal experiment exploring automated compute allocation and yield mechanics.
-          </p>
-
-          <p class="mt-2 text-[10px] text-slate-500">
-            Experimental · Not financial advice
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ [04] NOTES ============ -->
-    <section id="notes" class="border-t border-white/5 px-6 py-16 sm:px-8 lg:px-12 scroll-mt-16">
-      <div class="mx-auto max-w-6xl space-y-6">
-        <div>
-          <p class="font-mono-tech text-[11px] uppercase tracking-[0.25em] text-cyan-300/80">
-            // 04. Notes
-          </p>
-
-          <h2 class="mt-1 text-2xl font-light text-white">
-            System Logs
-          </h2>
-        </div>
-
-        <div class="rounded-xl border border-white/10 bg-white/[0.02] p-4">
-          <div class="font-mono-tech text-[10px] text-cyan-300">
-            SYSTEM LOG // AUTOMATION PHILOSOPHY
-          </div>
-
-          <p class="mt-2 text-sm leading-relaxed text-slate-300">
-            與其盲目逞強，不如把精力轉化為靜默運轉的後台結構。
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ CONTACT ============ -->
-    <section id="contact" class="border-t border-white/5 px-6 py-16 sm:px-8 lg:px-12 scroll-mt-16">
-      <div class="mx-auto max-w-6xl space-y-6">
-        <div>
-          <p class="font-mono-tech text-[11px] uppercase tracking-[0.25em] text-cyan-300/80">
-            // CONTACT
-          </p>
-
-          <h2 class="mt-1 text-2xl font-light text-white">
-            Get in touch
-          </h2>
-        </div>
-
-        <div class="flex flex-wrap gap-3">
-          <a href="https://www.instagram.com/lnt.rhythm" target="_blank" rel="noopener noreferrer" class="rounded-full border border-white/10 px-5 py-2.5 text-sm text-slate-300 hover:border-cyan-400/40 hover:text-cyan-200">
-            Instagram
-          </a>
-
-          <a href="https://github.com/tn556/Int.rhythm" target="_blank" rel="noopener noreferrer" class="rounded-full border border-white/10 px-5 py-2.5 text-sm text-slate-300 hover:border-cyan-400/40 hover:text-cyan-200">
-            GitHub
-          </a>
-
-          <a href="https://huggingface.co/spaces/tnno/rl-bitcoin-trading-dashboard" target="_blank" rel="noopener noreferrer" class="rounded-full border border-white/10 px-5 py-2.5 text-sm text-slate-300 hover:border-cyan-400/40 hover:text-cyan-200">
-            Hugging Face
-          </a>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="border-t border-white/5 px-6 py-10 sm:px-8 lg:px-12">
-    <div class="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <p class="font-mono-tech text-[11px] uppercase tracking-[0.2em] text-slate-500">
-        Int.rhythm // Nova_Lab
-      </p>
-
-      <div class="flex items-center gap-4 text-xs text-slate-400">
-        <a href="https://github.com/tn556/Int.rhythm" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-300">GitHub</a>
-        <a href="https://huggingface.co/spaces/tnno/rl-bitcoin-trading-dashboard" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-300">Hugging Face</a>
-        <a href="https://www.instagram.com/lnt.rhythm" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-300">
-          Instagram
-        </a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- ============ SCRIPTS ============ -->
-  <script>
-    const mobileMenuBtn = document.getElementById("mobile-menu-btn");
-    const mobileMenu = document.getElementById("mobile-menu");
-
-    mobileMenuBtn.addEventListener("click", () => {
-      const isOpen = mobileMenu.classList.contains("hidden");
-      mobileMenu.classList.toggle("hidden", !isOpen);
-      mobileMenuBtn.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    document.querySelectorAll(".mobile-nav-link").forEach(link => {
-      link.addEventListener("click", () => {
-        mobileMenu.classList.add("hidden");
-        mobileMenuBtn.setAttribute("aria-expanded", "false");
-      });
-    });
-
-    const VNC_SCENARIOS = {
-      oneWay: {
-        intro: "凌晨 02:17，某企業 SIP Trunk 客戶反映：撥出後對方聽到佢講嘢，但佢完全聽唔到對方聲音。",
-        prompt: "第一步你會點查？",
-        choices: [
-          "確認影響範圍（Scope）",
-          "直接重啟 SBC 媒體板卡",
-          "抽樣查 SIP Signaling 同 SDP"
-        ],
-        correct: 0,
-        rootCause: "SBC 未正確處理 NAT media handling，導致 RTP 單向。",
-        sop: [
-          "確認 Scope",
-          "查 SIP/SDP",
-          "查 RTP 雙向計數",
-          "申請 Change Control"
-        ]
-      },
-
-      dtmf: {
-        intro: "IVR 收到大量反映：客戶聽到歡迎語音，但按數字鍵無反應。",
-        prompt: "你會優先檢查邊一項？",
-        choices: [
-          "檢查 DTMF 傳送方式協商",
-          "叫客戶轉手機再試",
-          "直接切換 IVR Trunk"
-        ],
-        correct: 0,
-        rootCause: "SBC 與 IVR 的 DTMF relay 方法不一致。",
-        sop: [
-          "核對 RFC2833 payload type",
-          "核對 SIP INFO",
-          "申請 Change Control"
-        ]
-      },
-
-      sip503: {
-        intro: "NOC 收到大量 SIP 503，並伴隨 Q.850 Cause 34。",
-        prompt: "第一步你會點查？",
-        choices: [
-          "確認 Scope",
-          "直接重啟 SBC",
-          "直接切換路由"
-        ],
-        correct: 0,
-        rootCause: "下游 Trunk 滿載、路由不可用，或上游 Carrier 拒絕接收新呼叫。",
-        sop: [
-          "確認 Scope",
-          "查 Trunk 狀態",
-          "查近期變更",
-          "申請 Change Control"
-        ]
-      }
-    };
-
-    const VNC_CHEATS = {
-      "503": `
-        <p class="font-medium text-rose-300">SIP 503 / Q.850 Cause 34</p>
-        <p class="text-slate-300">通常代表下游 Trunk 滿載、路由不可用、維護中，或上游 Carrier 拒絕接收新呼叫。</p>
-        <p class="text-slate-400">先確認 Scope，再查 Trunk 狀態、近期變更與 CDR 曲線。</p>
-      `,
-
-      "486": `
-        <p class="font-medium text-amber-300">SIP 486 Busy Here</p>
-        <p class="text-slate-300">通常代表被叫端忙碌、拒接，或上層平台回傳 Busy。</p>
-        <p class="text-slate-400">486 不必然代表故障；應先分辨用戶行為與系統異常。</p>
-      `,
-
-      "rtp": `
-        <p class="font-medium text-sky-300">One-Way RTP</p>
-        <p class="text-slate-300">常見於 NAT、SDP 地址錯誤、媒體路徑不對稱、防火牆或 SBC media handling。</p>
-        <p class="text-slate-400">先查 SDP c= 地址、RTP 雙向計數與 SBC media handling。</p>
-      `
-    };
-
-    let vncState = {
-      mode: "game",
-      scenario: null,
-      xp: 0,
-      solvedKeys: [],
-      total: 3
-    };
-
-    function toggleVoiceNoc() {
-      const consoleEl = document.getElementById("vnc-console");
-      const btn = document.getElementById("vnc-toggle-btn");
-
-      consoleEl.classList.toggle("hidden");
-      const isOpen = !consoleEl.classList.contains("hidden");
-      btn.textContent = isOpen ? "CLOSE ▴" : "LAUNCH ▾";
-
-      if (isOpen && !vncState.scenario) {
-        loadVncScenario("oneWay");
-        renderVncCheat("503");
-      }
-    }
-
-    function switchVncMode(mode) {
-      vncState.mode = mode;
-
-      document.getElementById("vnc-game-view").classList.toggle("hidden", mode !== "game");
-      document.getElementById("vnc-cheat-view").classList.toggle("hidden", mode !== "cheat");
-
-      document.getElementById("vnc-mode-label").textContent =
-        mode === "game" ? "【🎮 GAME MODE】" : "【🚨 CHEAT SHEET】";
-    }
-
-    function renderVncChoices(choices) {
-      const box = document.getElementById("vnc-choices");
-      box.innerHTML = "";
-
-      choices.forEach((choice, index) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "w-full rounded-lg border border-white/10 bg-black/40 px-3 py-2 text-left text-xs text-slate-200 hover:border-cyan-400/40";
-        btn.textContent = `${index + 1}. ${choice}`;
-        btn.onclick = () => handleVncChoice(index);
-        box.appendChild(btn);
-      });
-    }
-
-    function loadVncScenario(key) {
-      vncState.scenario = key;
-
-      const scenario = VNC_SCENARIOS[key];
-
-      document.getElementById("vnc-intro").textContent = scenario.intro;
-      document.getElementById("vnc-prompt").textContent = scenario.prompt;
-
-      renderVncChoices(scenario.choices);
-
-      document.getElementById("vnc-feedback").classList.add("hidden");
-      document.getElementById("vnc-sop").classList.add("hidden");
-    }
-
-    function handleVncChoice(index) {
-      const scenario = VNC_SCENARIOS[vncState.scenario];
-      const feedback = document.getElementById("vnc-feedback");
-      const sop = document.getElementById("vnc-sop");
-
-      feedback.classList.remove("hidden");
-      sop.classList.add("hidden");
-
-      if (index === scenario.correct) {
-        if (!vncState.solvedKeys.includes(vncState.scenario)) {
-          vncState.solvedKeys.push(vncState.scenario);
-          vncState.xp += 100;
-        }
-
-        feedback.className = "rounded-lg p-2.5 text-xs leading-relaxed bg-emerald-500/10 text-emerald-200";
-        feedback.textContent = "✅ 判斷正確。已定位 Root Cause。";
-
-        sop.classList.remove("hidden");
-        sop.innerHTML = `
-          <p class="font-medium text-cyan-300">Root Cause</p>
-          <p class="text-slate-300">${scenario.rootCause}</p>
-          <p class="font-medium text-cyan-300">SOP</p>
-          <ul class="list-disc pl-4 text-slate-300">
-            ${scenario.sop.map(item => `<li>${item}</li>`).join("")}
-          </ul>
-        `;
-      } else {
-        feedback.className = "rounded-lg p-2.5 text-xs leading-relaxed bg-amber-500/10 text-amber-200";
-        feedback.textContent = "⚠️ 這一步可能帶來客戶影響。先回到 Scope、NMS、SIP/Q.850、RTP/SDP 與 Change Control。";
-      }
-
-      updateVncStatus();
-    }
-
-    function renderVncCheat(key) {
-      document.getElementById("vnc-cheat-box").innerHTML = VNC_CHEATS[key];
-    }
-
-    function updateVncStatus() {
-      document.getElementById("vnc-xp").textContent = `⚡ ${vncState.xp} XP`;
-      document.getElementById("vnc-solved").textContent = `✓ ${vncState.solvedKeys.length}/${vncState.total}`;
-    }
-  </script>
-</body>
-</html>
+                <div class="grid grid-cols-3 gap-1.5 font-mono-tech text-[10
