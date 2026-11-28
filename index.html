@@ -239,7 +239,7 @@
             </div>
           </a>
 
-          <!-- VoiceNOC Survival 完整卡片 -->
+        <!-- VoiceNOC Survival 完整卡片 -->
           <div class="rounded-2xl border border-cyan-400/25 bg-white/[0.02] p-6 space-y-4">
             <div class="flex items-start justify-between gap-3">
               <div class="space-y-1.5">
@@ -250,23 +250,34 @@
 
                 <h3 class="text-lg font-medium text-white">VoiceNOC Survival</h3>
 
-                <p class="text-sm leading-relaxed text-slate-400">
+                <p id="vnc-desc" class="text-sm leading-relaxed text-slate-400">
                   以實務排障思路設計嘅互動演練與急用速查面板。無實時網管權限；涉及影響客戶操作需經 Change Control。
                 </p>
 
-                <p class="text-[10px] text-slate-500">
+                <p id="vnc-disclaimer" class="text-[10px] text-slate-500">
                   Advisory only. Do not paste customer data, credentials, or unredacted logs.
                 </p>
               </div>
 
-              <button
-                id="vnc-toggle-btn"
-                type="button"
-                onclick="toggleVoiceNoc()"
-                class="shrink-0 rounded-full border border-cyan-400/35 bg-cyan-400/10 px-3.5 py-1.5 font-mono-tech text-[11px] text-cyan-200 transition hover:bg-cyan-400 hover:text-slate-950"
-              >
-                LAUNCH ▾
-              </button>
+              <div class="flex shrink-0 items-center gap-2">
+                <button
+                  id="vnc-lang-btn"
+                  type="button"
+                  onclick="toggleVncLang()"
+                  class="rounded-full border border-white/15 bg-black/40 px-2.5 py-1.5 font-mono-tech text-[10px] text-slate-300 transition hover:border-cyan-400/40 hover:text-cyan-200"
+                >
+                  EN
+                </button>
+
+                <button
+                  id="vnc-toggle-btn"
+                  type="button"
+                  onclick="toggleVoiceNoc()"
+                  class="rounded-full border border-cyan-400/35 bg-cyan-400/10 px-3.5 py-1.5 font-mono-tech text-[11px] text-cyan-200 transition hover:bg-cyan-400 hover:text-slate-950"
+                >
+                  LAUNCH ▾
+                </button>
+              </div>
             </div>
 
             <!-- 內建迷你模擬器 -->
@@ -278,6 +289,15 @@
                   <span id="vnc-xp" class="text-amber-300">⚡ 0 XP</span>
                   <span class="text-slate-600">|</span>
                   <span id="vnc-solved" class="text-sky-300">✓ 0/3</span>
+                  <span class="text-slate-600">|</span>
+                  <button
+                    id="vnc-reset-btn"
+                    type="button"
+                    onclick="resetVnc()"
+                    class="text-slate-400 hover:text-cyan-300 transition"
+                  >
+                    Reset
+                  </button>
                 </div>
               </div>
 
@@ -370,6 +390,7 @@
             <!-- 外部連結區：GitHub HTML 主打 + Poe 低調副連結 -->
             <div class="pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
               <a
+                id="vnc-full-link"
                 href="https://voicenocsurvival.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -380,6 +401,7 @@
               </a>
 
               <a
+                id="vnc-poe-link"
                 href="https://poe.com/VoiceNOCSurvival"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -389,9 +411,6 @@
               </a>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ============ [02] SHOP ============ -->
     <section id="shop" class="border-t border-white/5 px-6 py-16 sm:px-8 lg:px-12 scroll-mt-16">
@@ -572,88 +591,234 @@
       });
     });
 
+    const VNC_UI = {
+      zh: {
+        toggleLangLabel: "EN",
+        desc: "以實務排障思路設計嘅互動演練與急用速查面板。無實時網管權限；涉及影響客戶操作需經 Change Control。",
+        disclaimer: "Advisory only. Do not paste customer data, credentials, or unredacted logs.",
+        reset: "Reset",
+        scLabels: {
+          oneWay: "L1: 單通 Audio",
+          dtmf: "L2: IVR DTMF",
+          sip503: "L3: 503/C.34"
+        },
+        correctFeedback: "✅ 判斷正確。已定位 Root Cause。",
+        riskyFeedback: "⚠️ 這一步可能帶來客戶影響。先回到 Scope、NMS、SIP/Q.850、RTP/SDP 與 Change Control。",
+        rootCauseHeading: "Root Cause",
+        sopHeading: "SOP",
+        fullLink: "Open Full Space",
+        poeLink: "Also available as a Poe bot →"
+      },
+      en: {
+        toggleLangLabel: "HK",
+        desc: "Hands-on incident practice and quick troubleshooting reference built around real Voice NOC triage. No live network access; customer-impacting actions require Change Control.",
+        disclaimer: "Advisory only. Do not paste customer data, credentials, or unredacted logs.",
+        reset: "Reset",
+        scLabels: {
+          oneWay: "L1: 1-Way Audio",
+          dtmf: "L2: IVR DTMF",
+          sip503: "L3: 503/C.34"
+        },
+        correctFeedback: "✅ Sound diagnostic step. Likely root cause identified.",
+        riskyFeedback: "⚠️ This step could impact live traffic. Check Scope, NMS, SIP/Q.850, RTP/SDP, and Change Control first.",
+        rootCauseHeading: "Root Cause",
+        sopHeading: "SOP",
+        fullLink: "Open Full Space",
+        poeLink: "Also available as a Poe bot →"
+      }
+    };
+
     const VNC_SCENARIOS = {
       oneWay: {
-        intro: "凌晨 02:17，某企業 SIP Trunk 客戶反映：撥出後對方聽到佢講嘢，但佢完全聽唔到對方聲音。",
-        prompt: "第一步你會點查？",
-        choices: [
-          "確認影響範圍（Scope）",
-          "直接重啟 SBC 媒體板卡",
-          "抽樣查 SIP Signaling 同 SDP"
-        ],
-        correct: 0,
-        rootCause: "SBC 未正確處理 NAT media handling，導致 RTP 單向。",
-        sop: [
-          "確認 Scope",
-          "查 SIP/SDP",
-          "查 RTP 雙向計數",
-          "申請 Change Control"
-        ]
+        zh: {
+          intro: "凌晨 02:17，某企業 SIP Trunk 客戶反映：撥出後對方聽到佢講嘢，但佢完全聽唔到對方聲音。",
+          prompt: "第一步你會點查？",
+          choices: [
+            "確認影響範圍（Scope）",
+            "直接重啟 SBC 媒體板卡",
+            "抽樣查 SIP Signaling 同 SDP"
+          ],
+          rootCause: "SBC 未正確處理 NAT media handling，導致 RTP 單向。",
+          sop: [
+            "確認 Scope",
+            "查 SIP/SDP",
+            "查 RTP 雙向計數",
+            "申請 Change Control"
+          ]
+        },
+        en: {
+          intro: "At 02:17, an enterprise SIP trunk customer reports outbound callers hear the callee, but hear no audio back.",
+          prompt: "What do you check first?",
+          choices: [
+            "Confirm scope and affected trunks",
+            "Restart the SBC media board immediately",
+            "Inspect SIP signaling and SDP"
+          ],
+          rootCause: "SBC did not apply NAT media handling properly, causing one-way RTP.",
+          sop: [
+            "Confirm scope",
+            "Check SIP / SDP",
+            "Check bidirectional RTP counters",
+            "Follow Change Control"
+          ]
+        },
+        correct: 0
       },
 
       dtmf: {
-        intro: "IVR 收到大量反映：客戶聽到歡迎語音，但按數字鍵無反應。",
-        prompt: "你會優先檢查邊一項？",
-        choices: [
-          "檢查 DTMF 傳送方式協商",
-          "叫客戶轉手機再試",
-          "直接切換 IVR Trunk"
-        ],
-        correct: 0,
-        rootCause: "SBC 與 IVR 的 DTMF relay 方法不一致。",
-        sop: [
-          "核對 RFC2833 payload type",
-          "核對 SIP INFO",
-          "申請 Change Control"
-        ]
+        zh: {
+          intro: "IVR 收到大量反映：客戶聽到歡迎語音，但按數字鍵無反應。",
+          prompt: "你會優先檢查邊一項？",
+          choices: [
+            "檢查 DTMF 傳送方式協商",
+            "叫客戶轉手機再試",
+            "直接切換 IVR Trunk"
+          ],
+          rootCause: "SBC 與 IVR 的 DTMF relay 方法不一致。",
+          sop: [
+            "核對 RFC2833 payload type",
+            "核對 SIP INFO",
+            "申請 Change Control"
+          ]
+        },
+        en: {
+          intro: "An IVR hotline plays the greeting clearly, but keypad digits are not registering.",
+          prompt: "Which check comes first?",
+          choices: [
+            "Verify negotiated DTMF transport method",
+            "Ask callers to retry from mobile",
+            "Switch the IVR trunk immediately"
+          ],
+          rootCause: "DTMF relay method or payload type mismatch between SBC and IVR.",
+          sop: [
+            "Check RFC 2833 payload type",
+            "Check SIP INFO / in-band settings",
+            "Follow Change Control"
+          ]
+        },
+        correct: 0
       },
 
       sip503: {
-        intro: "NOC 收到大量 SIP 503，並伴隨 Q.850 Cause 34。",
-        prompt: "第一步你會點查？",
-        choices: [
-          "確認 Scope",
-          "直接重啟 SBC",
-          "直接切換路由"
-        ],
-        correct: 0,
-        rootCause: "下游 Trunk 滿載、路由不可用，或上游 Carrier 拒絕接收新呼叫。",
-        sop: [
-          "確認 Scope",
-          "查 Trunk 狀態",
-          "查近期變更",
-          "申請 Change Control"
-        ]
+        zh: {
+          intro: "NOC 收到大量 SIP 503，並伴隨 Q.850 Cause 34。",
+          prompt: "第一步你會點查？",
+          choices: [
+            "確認 Scope",
+            "直接重啟 SBC",
+            "直接切換路由"
+          ],
+          rootCause: "下游 Trunk 滿載、路由不可用，或上游 Carrier 拒絕接收新呼叫。",
+          sop: [
+            "確認 Scope",
+            "查 Trunk 狀態",
+            "查近期變更",
+            "申請 Change Control"
+          ]
+        },
+        en: {
+          intro: "A spike of SIP 503 responses with Q.850 Cause 34 appears on outbound calls.",
+          prompt: "What do you check first?",
+          choices: [
+            "Confirm scope and affected routes",
+            "Restart the SBC",
+            "Reroute traffic immediately"
+          ],
+          rootCause: "Downstream trunk congestion, unavailable route, or carrier rejection.",
+          sop: [
+            "Confirm scope",
+            "Check trunk and route status",
+            "Check recent changes",
+            "Follow Change Control"
+          ]
+        },
+        correct: 0
       }
     };
 
     const VNC_CHEATS = {
-      "503": `
-        <p class="font-medium text-rose-300">SIP 503 / Q.850 Cause 34</p>
-        <p class="text-slate-300">通常代表下游 Trunk 滿載、路由不可用、維護中，或上游 Carrier 拒絕接收新呼叫。</p>
-        <p class="text-slate-400">先確認 Scope，再查 Trunk 狀態、近期變更與 CDR 曲線。</p>
-      `,
+      "503": {
+        zh: `
+          <p class="font-medium text-rose-300">SIP 503 / Q.850 Cause 34</p>
+          <p class="text-slate-300">通常代表下游 Trunk 滿載、路由不可用、維護中，或上游 Carrier 拒絕接收新呼叫。</p>
+          <p class="text-slate-400">先確認 Scope，再查 Trunk 狀態、近期變更與 CDR 曲線。</p>
+        `,
+        en: `
+          <p class="font-medium text-rose-300">SIP 503 / Q.850 Cause 34</p>
+          <p class="text-slate-300">Often indicates trunk congestion, route unavailability, maintenance, or upstream carrier rejection.</p>
+          <p class="text-slate-400">Confirm scope first, then check trunk status, recent changes, and CDR trends.</p>
+        `
+      },
 
-      "486": `
-        <p class="font-medium text-amber-300">SIP 486 Busy Here</p>
-        <p class="text-slate-300">通常代表被叫端忙碌、拒接，或上層平台回傳 Busy。</p>
-        <p class="text-slate-400">486 不必然代表故障；應先分辨用戶行為與系統異常。</p>
-      `,
+      "486": {
+        zh: `
+          <p class="font-medium text-amber-300">SIP 486 Busy Here</p>
+          <p class="text-slate-300">通常代表被叫端忙碌、拒接，或上層平台回傳 Busy。</p>
+          <p class="text-slate-400">486 不必然代表故障；應先分辨用戶行為與系統異常。</p>
+        `,
+        en: `
+          <p class="font-medium text-amber-300">SIP 486 Busy Here</p>
+          <p class="text-slate-300">Indicates the called party or endpoint is busy or rejecting calls.</p>
+          <p class="text-slate-400">Not automatically a network fault; separate normal busy behavior from abnormal spikes.</p>
+        `
+      },
 
-      "rtp": `
-        <p class="font-medium text-sky-300">One-Way RTP</p>
-        <p class="text-slate-300">常見於 NAT、SDP 地址錯誤、媒體路徑不對稱、防火牆或 SBC media handling。</p>
-        <p class="text-slate-400">先查 SDP c= 地址、RTP 雙向計數與 SBC media handling。</p>
-      `
+      "rtp": {
+        zh: `
+          <p class="font-medium text-sky-300">One-Way RTP</p>
+          <p class="text-slate-300">常見於 NAT、SDP 地址錯誤、媒體路徑不對稱、防火牆或 SBC media handling。</p>
+          <p class="text-slate-400">先查 SDP c= 地址、RTP 雙向計數與 SBC media handling。</p>
+        `,
+        en: `
+          <p class="font-medium text-sky-300">One-Way RTP</p>
+          <p class="text-slate-300">Commonly tied to NAT, mismatched SDP addresses, asymmetric media paths, firewall rules, or SBC media handling.</p>
+          <p class="text-slate-400">Check SDP c= address, bidirectional RTP counters, and SBC media handling.</p>
+        `
+      }
     };
 
     let vncState = {
+      lang: "zh",
       mode: "game",
-      scenario: null,
+      scenario: "oneWay",
+      cheatKey: "503",
+      lastChoiceIndex: null,
       xp: 0,
       solvedKeys: [],
       total: 3
     };
+
+    function applyVncLanguage() {
+      const ui = VNC_UI[vncState.lang];
+      document.getElementById("vnc-lang-btn").textContent = ui.toggleLangLabel;
+      document.getElementById("vnc-desc").textContent = ui.desc;
+      document.getElementById("vnc-disclaimer").textContent = ui.disclaimer;
+      document.getElementById("vnc-reset-btn").textContent = ui.reset;
+      document.getElementById("vnc-full-link").firstElementChild.textContent = ui.fullLink;
+      document.getElementById("vnc-poe-link").textContent = ui.poeLink;
+
+      Object.entries(ui.scLabels).forEach(([key, label]) => {
+        const btn = document.getElementById(`vnc-sc-${key}`);
+        if (btn) btn.textContent = label;
+      });
+
+      const sc = VNC_SCENARIOS[vncState.scenario][vncState.lang];
+      document.getElementById("vnc-intro").textContent = sc.intro;
+      document.getElementById("vnc-prompt").textContent = sc.prompt;
+      renderVncChoices(sc.choices);
+
+      if (vncState.lastChoiceIndex !== null) {
+        handleVncChoice(vncState.lastChoiceIndex, true);
+      }
+
+      renderVncCheat(vncState.cheatKey);
+      updateVncStatus();
+    }
+
+    function toggleVncLang() {
+      vncState.lang = vncState.lang === "zh" ? "en" : "zh";
+      applyVncLanguage();
+    }
 
     function toggleVoiceNoc() {
       const consoleEl = document.getElementById("vnc-console");
@@ -663,9 +828,8 @@
       const isOpen = !consoleEl.classList.contains("hidden");
       btn.textContent = isOpen ? "CLOSE ▴" : "LAUNCH ▾";
 
-      if (isOpen && !vncState.scenario) {
-        loadVncScenario("oneWay");
-        renderVncCheat("503");
+      if (isOpen) {
+        applyVncLanguage();
       }
     }
 
@@ -716,9 +880,10 @@
 
     function loadVncScenario(key) {
       vncState.scenario = key;
+      vncState.lastChoiceIndex = null;
       updateScenarioButtons(key);
 
-      const scenario = VNC_SCENARIOS[key];
+      const scenario = VNC_SCENARIOS[key][vncState.lang];
 
       document.getElementById("vnc-intro").textContent = scenario.intro;
       document.getElementById("vnc-prompt").textContent = scenario.prompt;
@@ -729,47 +894,62 @@
       document.getElementById("vnc-sop").classList.add("hidden");
     }
 
-    function handleVncChoice(index) {
-      const scenario = VNC_SCENARIOS[vncState.scenario];
+    function handleVncChoice(index, isLanguageRefresh = false) {
+      const entry = VNC_SCENARIOS[vncState.scenario];
+      const scenario = entry[vncState.lang];
+      const ui = VNC_UI[vncState.lang];
       const feedback = document.getElementById("vnc-feedback");
       const sop = document.getElementById("vnc-sop");
 
+      vncState.lastChoiceIndex = index;
       feedback.classList.remove("hidden");
       sop.classList.add("hidden");
 
-      if (index === scenario.correct) {
-        if (!vncState.solvedKeys.includes(vncState.scenario)) {
+      if (index === entry.correct) {
+        if (!isLanguageRefresh && !vncState.solvedKeys.includes(vncState.scenario)) {
           vncState.solvedKeys.push(vncState.scenario);
           vncState.xp += 100;
         }
 
         feedback.className = "rounded-lg p-2.5 text-xs leading-relaxed bg-emerald-500/10 text-emerald-200";
-        feedback.textContent = "✅ 判斷正確。已定位 Root Cause。";
+        feedback.textContent = ui.correctFeedback;
 
         sop.classList.remove("hidden");
         sop.innerHTML = `
-          <p class="font-medium text-cyan-300">Root Cause</p>
+          <p class="font-medium text-cyan-300">${ui.rootCauseHeading}</p>
           <p class="text-slate-300">${scenario.rootCause}</p>
-          <p class="font-medium text-cyan-300">SOP</p>
+          <p class="font-medium text-cyan-300">${ui.sopHeading}</p>
           <ul class="list-disc pl-4 text-slate-300">
             ${scenario.sop.map(item => `<li>${item}</li>`).join("")}
           </ul>
         `;
       } else {
         feedback.className = "rounded-lg p-2.5 text-xs leading-relaxed bg-amber-500/10 text-amber-200";
-        feedback.textContent = "⚠️ 這一步可能帶來客戶影響。先回到 Scope、NMS、SIP/Q.850、RTP/SDP 與 Change Control。";
+        feedback.textContent = ui.riskyFeedback;
       }
 
       updateVncStatus();
     }
 
     function renderVncCheat(key) {
-      document.getElementById("vnc-cheat-box").innerHTML = VNC_CHEATS[key];
+      vncState.cheatKey = key;
+      document.getElementById("vnc-cheat-box").innerHTML = VNC_CHEATS[key][vncState.lang];
     }
 
     function updateVncStatus() {
       document.getElementById("vnc-xp").textContent = `⚡ ${vncState.xp} XP`;
       document.getElementById("vnc-solved").textContent = `✓ ${vncState.solvedKeys.length}/${vncState.total}`;
+    }
+
+    function resetVnc() {
+      vncState.xp = 0;
+      vncState.solvedKeys = [];
+      vncState.lastChoiceIndex = null;
+      vncState.scenario = "oneWay";
+      updateScenarioButtons("oneWay");
+      applyVncLanguage();
+      document.getElementById("vnc-feedback").classList.add("hidden");
+      document.getElementById("vnc-sop").classList.add("hidden");
     }
   </script>
 </body>
